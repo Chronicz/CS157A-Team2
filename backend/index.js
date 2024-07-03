@@ -1,7 +1,9 @@
 import express from "express"
 import mysql from "mysql2"
-
+import cors from "cors"
 const app = express()
+app.use(express.json());
+app.use(cors())
 
 const db = mysql.createConnection({
     host: "localhost",
@@ -10,8 +12,8 @@ const db = mysql.createConnection({
     database: "cozyfirm"
 })
 
-app.listen(8080, () => {
-    console.log("Connected to backend...")
+app.listen(8000, () => {
+    console.log("Connected to backend... PORT 8000")
 })
 
 app.get("/", (req, res) => {
