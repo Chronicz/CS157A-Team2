@@ -23,9 +23,9 @@ const Home = () => {
   return (
     <div>
       <h1>3 Tier Setup Testing</h1>
-      <div className="users" key={users.UID}>
+      <div className="users">
         {users.map(user => (
-          <div className="user">
+          <div className="user" key={user.UID}>
             {user.UID}
             <br />
             {user.LastName}
