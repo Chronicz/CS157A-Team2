@@ -7,9 +7,9 @@ app.use(cors())
 
 const db = mysql.createConnection({
     host: "localhost",
-    user: "jin",
-    password: "jin2000",
-    database: "cozyfirm"
+    user: "root",
+    password: "He110#4023",
+    database: "kas"
 })
 
 app.listen(8000, () => {
@@ -17,7 +17,7 @@ app.listen(8000, () => {
 })
 
 app.get("/", (req, res) => {
-    const q = "SELECT * FROM cozyfirm.users;"
+    const q = "SELECT * FROM kas.student;"
     db.query(q, (err, data) => {
         if (err) {
             return res.json(err)
