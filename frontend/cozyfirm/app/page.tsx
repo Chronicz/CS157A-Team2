@@ -22,18 +22,7 @@ const Home = () => {
 
   return (
     <div>
-      <h1>3 Tier Setup Testing</h1>
-      <div className="users" key={users.UID}>
-        {users.map(user => (
-          <div class Name="user">
-            {user.UID}
-            <br />
-            {user.LastName}
-            <br />
-            {user.FirstName}
-          </div>
-        ))}
-      </div>
+      <h1>Hellow World</h1>
     </div>
   )
 }
