@@ -11,23 +11,29 @@ interface BlogListEntry {
   username: string;
 }
 
-const BlogListEntry = (entryData: BlogListEntry) => {
+interface BlogListEntryProps extends BlogListEntry {
+  className?: string;
+}
+
+const BlogListEntry = ({ className, ...entryData }: BlogListEntryProps) => {
   return (
-    <div>
-      <img
-        src="/chair.png"
-        alt="Chair"
-        className="h-48 w-48 border-2 border-black"
-      />
-      <div className="flex flex-col">
-        <p className="font-bold">{entryData.blog_title}</p>
-        <div className="flex flex-row gap-3">
-          <p className="font-semibold">By {entryData.username}</p>
-          <p>{moment(entryData.blog_date).format("YYYY-MM-DD")}</p>
-        </div>
-        <div className="flex flex-row font-semibold">
-          <div>Tag:</div>
-          <div className="ml-4 border-2 rounded">{entryData.blog_tag}</div>
+    <div className={className}>
+      <div className="flex flex-col items-center">
+        <img
+          src="/chair.png"
+          alt="Chair"
+          className="h-48 w-48 border-2 border-black mb-4"
+        />
+        <div className="flex flex-col">
+          <p className="font-bold">{entryData.blog_title}</p>
+          <div className="flex flex-row gap-3">
+            <p className="font-semibold">By {entryData.username}</p>
+            <p>{moment(entryData.blog_date).format("YYYY-MM-DD")}</p>
+          </div>
+          <div className="flex flex-row font-semibold">
+            <div>Tag:</div>
+            <div className="ml-4 border-2 rounded">{entryData.blog_tag}</div>
+          </div>
         </div>
       </div>
     </div>
