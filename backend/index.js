@@ -27,8 +27,9 @@ app.get("/", (req, res) => {
     })
 })
 
+
 app.get("/bloglist", (req, res) => {
-    const q = "SELECT * FROM cozyfirm.blog;"
+    const q = "SELECT b.*, u.username FROM cozyfirm.blog b JOIN cozyfirm.user u ON b.user_id = u.user_id";
     db.query(q, (err, data) => {
         if (err) {
             return res.json(err)

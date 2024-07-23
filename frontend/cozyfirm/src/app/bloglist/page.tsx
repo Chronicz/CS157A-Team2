@@ -23,7 +23,7 @@ const BlogList = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-3 gap-2 justify-center h-screen">
+      <div className="grid grid-cols-3 gap-4">
         {blogLists.map((blogList, index) => (
           <BlogListEntry key={index} {...blogList} />
         ))}

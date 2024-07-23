@@ -8,6 +8,7 @@ interface BlogListEntry {
   blog_description: string;
   blog_tag: string;
   user_id: number;
+  username: string;
 }
 
 const BlogListEntry = (entryData: BlogListEntry) => {
@@ -20,8 +21,8 @@ const BlogListEntry = (entryData: BlogListEntry) => {
       />
       <div className="flex flex-col">
         <p className="font-bold">{entryData.blog_title}</p>
-        <div className="flex flex-row justify-between">
-          <p className="font-semibold">By Keanu Bicol</p>
+        <div className="flex flex-row gap-3">
+          <p className="font-semibold">By {entryData.username}</p>
           <p>{moment(entryData.blog_date).format("YYYY-MM-DD")}</p>
         </div>
         <div className="flex flex-row font-semibold">
