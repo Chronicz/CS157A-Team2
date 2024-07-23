@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -26,7 +28,7 @@ body {
   }
 
   .btn_dark_green {
-    @apply bg-green-90 px-8 py-4 text-white transition-all hover:bg-black
+    @apply bg-neutral-800 px-8 py-4 text-white transition-all hover:bg-black
   }
 
   .btn_dark_green_outline {
@@ -38,7 +40,7 @@ body {
   }
 
   .padding-container {
-    @apply px-6 lg:px-20 3xl:px-0;
+    @apply px-6 lg:px-20 xl:px-0;
   }
 
   .flexCenter {
