@@ -17,7 +17,7 @@ app.listen(8000, () => {
 })
 
 app.get("/", (req, res) => {
-    const q = "SELECT * FROM cozyfirm.users;"
+    const q = "SELECT * FROM cozyfirm.user;"
     db.query(q, (err, data) => {
         if (err) {
             return res.json(err)
@@ -25,4 +25,5 @@ app.get("/", (req, res) => {
             return res.json(data)
         }
     })
+    
 })
