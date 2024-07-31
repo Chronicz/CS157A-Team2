@@ -13,10 +13,6 @@ interface User {
   last_name: string;
 }
 
-const censorPassword = (str: string): string =>{
-  return str.replace(/./g, "*");
-}
-
 const Home = () => {
   const [users, setUsers] = useState([]);
 
@@ -57,7 +53,7 @@ const Home = () => {
                 <div className="grid-item mx-4 font-bold">Password</div>
                 <div className="grid-item mx-4">{user.first_name}</div>
                 <div className="grid-item mx-4">{user.last_name}</div>
-                <div className="grid-item mx-4">{censorPassword({user.password})}</div>
+                <div className="grid-item mx-4">{user.password}</div>
               </div>
               <div className="flex row-wrap flex-end mx-96">
                 <div className="my-2">
