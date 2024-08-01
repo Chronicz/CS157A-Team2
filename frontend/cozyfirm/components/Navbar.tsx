@@ -4,7 +4,7 @@ import Button from "../components/buttons";
 import Image from "next/image";
 const navbar = () => {
     return (
-        <nav className="border-2 flexBetween max-container padding-container relative z-30 py-5">
+        <nav className="border-2 flexBetween max-container padding-container relative z-30 py-5 ">
             <Link href="/" className="font-bold">
                 COZYFIRM
             </Link>

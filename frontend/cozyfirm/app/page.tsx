@@ -22,7 +22,7 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Hellow World</h1>
+      <h1 className="flexBetween padding-container relative z-30 py-5 ">Build your Cozy Corner</h1>
     </div>
   )
 }
