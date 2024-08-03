@@ -1,5 +1,8 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
+import { useRouter } from "next/router";
+import axios from "axios";
 
 interface BlogPost {
   blog_id: number;
@@ -16,14 +19,34 @@ interface BlogPostProps extends BlogPost {
 }
 
 const BlogPost = ({ className, ...entryData }: BlogPostProps) => {
+  const router = useRouter();
+  const { blog_id } = router.query;
+
+  const [blogPostData, setBlogPostData] = useState<[]>([]);
+
+  useEffect(() => {
+    const fetchBlogPostData = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:8000/blogpost/${blog_id}`
+        );
+        setBlogPostData(res.data);
+        console.log(res);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchBlogPostData();
+  }, []);
+
   return (
     <div className={className}>
       <div className="flex flex-col items-center">
         <div className="flex flex-col">
-          <p className="text-3xl font-bold">The Best-Valued Steelcase Chair</p>
+          <p className="text-3xl font-bold">{blogPostData.blog_title}</p>
           <div className="flex flex-row gap-48 mt-12 mb-14">
             <p className="font-semibold">By Keanu Bicol</p>
-            <p>{moment(entryData.blog_date).format("YYYY-MM-DD")}</p>
+            <p>{moment(blogPostData.blog_date).format("YYYY-MM-DD")}</p>
           </div>
           <img
             src="/chair.png"
@@ -32,15 +55,7 @@ const BlogPost = ({ className, ...entryData }: BlogPostProps) => {
           />
         </div>
       </div>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum quos
-        mollitia quidem sapiente voluptatum molestias assumenda, ut nihil
-        similique explicabo nam quam debitis blanditiis fugiat saepe,
-        perferendis ipsum suscipit? Minus. Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Eum quos mollitia quidem sapiente
-        voluptatum molestias assumenda, ut nihil similique explicabo nam quam
-        debitis blanditiis fugiat saepe, perferendis ipsum suscipit? Minus.
-      </p>
+      <p>{blogPostData.blog_description}</p>
     </div>
   );
 };
