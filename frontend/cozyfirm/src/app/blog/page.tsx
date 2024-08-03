@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 
-interface BlogEntry {
+interface BlogPost {
   blog_id: number;
   blog_title: string;
   blog_date: Date;
@@ -11,17 +11,17 @@ interface BlogEntry {
   username: string;
 }
 
-interface BlogEntryProps extends BlogEntry {
+interface BlogPostProps extends BlogPost {
   className?: string;
 }
 
-const BlogEntry = ({ className, ...entryData }: BlogEntryProps) => {
+const BlogPost = ({ className, ...entryData }: BlogPostProps) => {
   return (
     <div className={className}>
       <div className="flex flex-col items-center">
         <div className="flex flex-col">
           <p className="text-3xl font-bold">The Best-Valued Steelcase Chair</p>
-          <div className="flex flex-row gap-48 mt-20">
+          <div className="flex flex-row gap-48 mt-12 mb-14">
             <p className="font-semibold">By Keanu Bicol</p>
             <p>{moment(entryData.blog_date).format("YYYY-MM-DD")}</p>
           </div>
@@ -44,4 +44,4 @@ const BlogEntry = ({ className, ...entryData }: BlogEntryProps) => {
     </div>
   );
 };
-export default BlogEntry;
+export default BlogPost;
