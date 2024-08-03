@@ -27,3 +27,13 @@ app.get("/", (req, res) => {
     })
     
 })
+
+app.post("/Login", (req, res) => {
+    const q = "SELECT * FROM cozyfirm.user WHERE username = ? AND password = ?";
+    const values = [req.body.username, req.body.password]
+    db.query(q, [values], (err,data) => {
+        if(err){return res.json(err)}
+        if(data.length > 0){return res.json("success")}
+        else{return res.json("failed")}
+    })
+})
