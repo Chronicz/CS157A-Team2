@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 })
 
 app.get("/bloglist", (req, res) => {
-    const q = "SELECT * FROM cozyfirm.blog";
+    const q = "SELECT b.*, u.username FROM cozyfirm.blog b JOIN cozyfirm.user u ON b.user_id = u.user_id";
     db.query(q, (err, data) => {
         if (err) {
             return res.json(err)
@@ -38,9 +38,10 @@ app.get("/bloglist", (req, res) => {
     })
 })
 
-app.get(`/api/blogpost/${blog_id}`, (req, res) => {
-    const q = "SELECT * FROM cozyfirm.blog WHERE blog.blog_id = blog_id";
-    db.query(q, (err, data) => {
+app.get(`/blogpost/:blog_id`, (req, res) => {
+    const req_blog_id = req.params.blog_id;
+    const q = `SELECT b.*, u.username FROM cozyfirm.blog b JOIN cozyfirm.user u ON b.user_id = u.user_id WHERE b.blog_id = ${req_blog_id}`;
+    db.query(q, [req_blog_id], (err, data) => {
         if (err) {
             return res.json(err)
         } else {
