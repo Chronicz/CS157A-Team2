@@ -31,7 +31,11 @@ const Home = () => {
     fetchUsers();
   }, []);
 
-  return <div></div>;
+  return (
+    <div>
+      <Account></Account>
+    </div>
+  );
 };
 
 export default Home;

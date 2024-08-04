@@ -20,7 +20,7 @@ const Account = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/account");
+        const res = await axios.get("http://localhost:8000");
         setUsers(res.data);
         console.log(res);
       } catch (err) {

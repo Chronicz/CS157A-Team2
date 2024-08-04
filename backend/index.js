@@ -3,7 +3,7 @@ import mysql from "mysql2"
 import cors from "cors"
 const app = express()
 app.use(express.json());
-//app.use(cors())
+app.use(cors())
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -41,3 +41,14 @@ app.get("/", (req, res) => {
     
 })
 
+app.get("/account", (req, res) => {
+    const q = "SELECT * FROM cozyfirm.user;"
+    db.query(q, (err, data) => {
+        if (err) {
+            return res.json(err)
+        } else {
+            return res.json(data)
+        }
+    })
+    
+})
