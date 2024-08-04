@@ -4,7 +4,7 @@ import moment from "moment";
 import axios from "axios";
 import { useParams } from "next/navigation";
 
-interface BlogPost {
+interface BlogPostEntry {
   blog_id: number;
   blog_title: string;
   blog_date: Date;
@@ -17,31 +17,29 @@ interface BlogPost {
 const BlogPost = () => {
   const { blog_id } = useParams();
 
-  const [blogPostData, setBlogPostData] = useState<BlogPost>({
+  const [blogPostData, setBlogPostData] = useState<BlogPostEntry>({
     blog_id: 0,
-    blog_title: "",
+    blog_title: "her smile and her dreams",
     blog_date: new Date(),
-    blog_description: "",
+    blog_description: "it gives me meaning everyday",
     blog_tag: "",
     user_id: 0,
     username: "",
   });
 
-  useEffect(() => {
-    const fetchBlogPostData = async () => {
-      try {
-        const res = await axios.get(
-          `http://localhost:8000/blogpost/${blog_id}`
-        );
-        setBlogPostData(res.data);
-        console.log(res.data);
-      } catch (err) {
-        console.error(err);
+  const fetchBlogPostData = async () => {
+    try {
+      const res = await axios.get(`http://localhost:8000/blogpost/${blog_id}`);
+      setBlogPostData(res.data[0]);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-        alert("Error fetching blog post data");
-      }
-    };
+  useEffect(() => {
     fetchBlogPostData();
+    console.log(blogPostData);
   }, [blog_id]);
 
   return (
