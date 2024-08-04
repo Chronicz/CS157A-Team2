@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
@@ -5,9 +7,12 @@ import axios from "axios";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   function handleSubmit(event: { preventDefault: () => void }) {
-    event.preventDefault();
-    axios.post("http://localhost:8000/Login", { username, password });
+    axios
+      .post("http://localhost:8000/login", { username, password })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   }
 
   return (

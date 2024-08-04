@@ -4,8 +4,8 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Button from "../components/buttons";
-import Login from "./Login";
-import User from "./user";
+import Login from "./login/page";
+import Account from "./account/page";
 
 interface User {
   user_id: number;
@@ -31,12 +31,7 @@ const Home = () => {
     fetchUsers();
   }, []);
 
-  return (
-    <div>
-      <Login></Login>
-      <User></User>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Home;

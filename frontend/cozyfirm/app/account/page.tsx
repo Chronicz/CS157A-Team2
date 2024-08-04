@@ -3,8 +3,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Button from "../components/buttons";
-import login from "./Login";
+import Button from "../../components/buttons";
+import login from "../login/page";
 
 interface User {
   user_id: number;
@@ -14,13 +14,13 @@ interface User {
   last_name: string;
 }
 
-const Home = () => {
+const Account = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get("http://localhost:8000");
+        const res = await axios.get("http://localhost:8000/account");
         setUsers(res.data);
         console.log(res);
       } catch (err) {
@@ -87,4 +87,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Account;
