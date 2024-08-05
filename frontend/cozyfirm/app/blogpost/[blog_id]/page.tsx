@@ -10,6 +10,7 @@ interface BlogPostEntry {
   blog_date: Date;
   blog_description: string;
   blog_tag: string;
+  blog_image_path: string;
   user_id: number;
   username: string;
 }
@@ -23,6 +24,7 @@ const BlogPost = () => {
     blog_date: new Date(),
     blog_description: "it gives me meaning everyday",
     blog_tag: "",
+    blog_image_path: "",
     user_id: 0,
     username: "",
   });
@@ -43,22 +45,20 @@ const BlogPost = () => {
   }, [blog_id]);
 
   return (
-    <div>
+    <div className="flex justify-center">
       <div className="flex flex-col items-center">
-        <div className="flex flex-col">
-          <p className="text-3xl font-bold">{blogPostData.blog_title}</p>
-          <div className="flex flex-row gap-48 mt-12 mb-14">
-            <p className="font-semibold">By {blogPostData.username}</p>
-            <p>{moment(blogPostData.blog_date).format("YYYY-MM-DD")}</p>
-          </div>
-          <img
-            src="/chair.png"
-            alt="Chair"
-            className="h-80 w-80 border-2 border-black mb-4"
-          />
+        <p className="text-3xl font-bold">{blogPostData.blog_title}</p>
+        <div className="flex flex-row gap-48 mt-12 mb-14">
+          <p className="font-semibold">By {blogPostData.username}</p>
+          <p>{moment(blogPostData.blog_date).format("YYYY-MM-DD")}</p>
         </div>
+        <img
+          src={blogPostData.blog_image_path}
+          alt="Chair/Table"
+          className="h-80 w-80 border-2 border-black mb-4"
+        />
+        <p className="mt-4">{blogPostData.blog_description}</p>
       </div>
-      <p>{blogPostData.blog_description}</p>
     </div>
   );
 };

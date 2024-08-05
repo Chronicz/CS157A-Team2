@@ -41,9 +41,9 @@ const BlogList = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap justify-around gap-4 gap-y-12 mt-10">
+      <div className="grid grid-cols-3 gap-4 mt-10">
         {blogLists.map((blogList, index) => (
-          <BlogListEntry key={index} {...blogList} className="basis-1/4" />
+          <BlogListEntry key={index} {...blogList} />
         ))}
       </div>
     </div>

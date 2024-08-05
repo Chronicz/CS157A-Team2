@@ -8,6 +8,7 @@ interface BlogListEntry {
   blog_date: Date;
   blog_description: string;
   blog_tag: string;
+  blog_image_path: string;
   user_id: number;
   username: string;
 }
@@ -22,8 +23,8 @@ const BlogListEntry = ({ className, ...entryData }: BlogListEntryProps) => {
       <div className={className}>
         <div className="flex flex-col items-center">
           <img
-            src="/chair.png"
-            alt="Chair"
+            src={entryData.blog_image_path}
+            alt="Chair/Table"
             className="h-48 w-48 border-2 border-black mb-4"
           />
           <div className="flex flex-col">
