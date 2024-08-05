@@ -14,6 +14,9 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         'home': "url('/path/to/your/image.jpg')",
       },
+      height: {
+        90: '83vh',
+      },
     },
   },
   plugins: [],
