@@ -36,11 +36,11 @@ body {
   }
 
   .max-container {
-    @apply mx-auto max-w-[1440px];
+    @apply mx-auto max-w-[2560px];
   }
 
   .padding-container {
-    @apply px-6 lg:px-20 xl:px-0;
+    @apply px-6 lg:px-20 xl:px-20;
   }
 
   .flexCenter {
