@@ -27,10 +27,15 @@ app.get("/", (req, res) => {
     })
 })
 
+app.get("/browse", (req, res) => {
+    console.log("This is the browse page.");
+})
+
 app.get("/bloglist", (req, res) => {
     const q = "SELECT b.*, u.username FROM cozyfirm.blog b JOIN cozyfirm.user u ON b.user_id = u.user_id";
     db.query(q, (err, data) => {
         if (err) {
+            w
             return res.json(err)
         } else {
             return res.json(data)
