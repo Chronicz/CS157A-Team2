@@ -53,3 +53,28 @@ app.get(`/blogpost/:blog_id`, (req, res) => {
         }
     })
 })
+
+app.post("/login", (req, res) => {
+    const q = "SELECT * FROM cozyfirm.user WHERE username = ? AND password = ?";
+    db.query(q, [req.body.username, req.body.password], (err, data) => {
+        if (err) { return res.json(err) }
+        if (data.length > 0) {
+            return res.json("success")
+        }
+        else {
+            return res.json("invalid")
+        }
+    })
+})
+
+app.get("/account", (req, res) => {
+    const q = "SELECT * FROM cozyfirm.user;"
+    db.query(q, (err, data) => {
+        if (err) {
+            return res.json(err)
+        } else {
+            return res.json(data)
+        }
+    })
+
+})
