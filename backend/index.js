@@ -8,7 +8,7 @@ app.use(cors())
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "He110#4023",
+    password: "Littletutu00!",
     database: "cozyfirm"
 })
 
@@ -86,19 +86,6 @@ app.get("/account", (req, res) => {
             return res.json(err)
         } else {
             return res.json(data)
-        }
-    })
-})
-
-app.post("/login", (req, res) => {
-    const q = "SELECT * FROM cozyfirm.user WHERE username = ? AND password = ?";
-    db.query(q, [req.body.username, req.body.password], (err, data) => {
-        if (err) { return res.json(err) }
-        if (data.length > 0) {
-            return res.json("success")
-        }
-        else {
-            return res.json("invalid")
         }
     })
 })
