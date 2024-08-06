@@ -57,9 +57,9 @@ app.get(`/blogpost/:blog_id`, (req, res) => {
 })
 
 
-const upload = multer({ dest: `/frontend/public/furniture_images/` });
+const upload = multer({ dest: `C:/Users/kethy/Documents/School/SJSU/Summer2024/CS157A/CS157A-Team2/frontend/cozyfirm/public/furniture_images` });
 
-app.post('/createblog', upload.single('blogFile'), async (req, res) => {
+app.post('/createblog', upload.single('file'), async (req, res) => {
     try {
       if (!req.file) {
         return res.status(400).json({ message: 'No file provided' });
@@ -69,28 +69,19 @@ app.post('/createblog', upload.single('blogFile'), async (req, res) => {
         return res.status(400).json({ message: 'All fields are required' });
       }
   
-      const buffer = req.file.buffer;
-      const path = `/frontend/public/furniture_images/${req.file.filename}`;
-
-      try {
-        await fs.writeFile(path, buffer);
-      } catch (err) {
-        console.error(`Error writing file to path: ${path}`);
-        console.error(err);
-        return res.status(500).json({ message: 'Failed to write file' });
-      }
-  
       const { blog_title, blog_date, blog_description, blog_tag, user_id: userId } = req.body;
       const parsedUserId = parseInt(userId, 10);
   
-      if (isNaN(parsedUserId)) {
-        return res.status(400).json({ message: 'Invalid user ID' });
-      }
+      const filePath = `C:/Users/kethy/Documents/School/SJSU/Summer2024/CS157A/CS157A-Team2/frontend/cozyfirm/public/furniture_images/${req.file.originalname }`;
   
-      const blog_image_path = `/furniture_images/${req.file.originalname}`;
+      fs.rename(req.file.path, filePath, (err) => {
+        if (err) {
+          console.error(err);
+        }
+      });
   
       const q = "INSERT INTO cozyfirm.blog (blog_title, blog_date, blog_description, blog_tag, blog_image_path, user_id) VALUES (?, ?, ?, ?, ?, ?)";
-      db.query(q, [blog_title, blog_date, blog_description, blog_tag, blog_image_path, parsedUserId], (err, data) => {
+      db.query(q, [blog_title, blog_date, blog_description, blog_tag, filePath, parsedUserId], (err, data) => {
         if (err) {
           return res.status(500).json({ message: 'Failed to create blog post' });
         } else {
@@ -98,6 +89,7 @@ app.post('/createblog', upload.single('blogFile'), async (req, res) => {
         }
       });
     } catch (err) {
+      console.error(err);
       return res.status(500).json({ message: 'Internal Server Error' });
     }
   });
