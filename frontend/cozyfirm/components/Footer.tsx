@@ -4,6 +4,6 @@ const footer = () => {
       CozyFirm @ 2024
     </footer>
   );
-}
+};
 
 export default footer;

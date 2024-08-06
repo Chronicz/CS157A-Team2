@@ -28,7 +28,7 @@ const BlogList = () => {
         <p className="text-3xl font-bold">THE COZY BLOG</p>
         <p>Search for any blogs about a specific piece of furniture!</p>
         <div className="flex flex-row">
-          <div className="flex flex-row border-2 rounded">
+          {/* <div className="flex flex-row border-2 rounded">
             <div className="flex items-center w-full max-w-md mx-auto">
               <img
                 src="/search_icon.jpg"
@@ -44,7 +44,7 @@ const BlogList = () => {
                 Search
               </button>
             </div>
-          </div>
+          </div> */}
           <Button
             type="button"
             title="Create a post"
