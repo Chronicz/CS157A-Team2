@@ -43,7 +43,9 @@ const CreateBlog = () => {
 
   return (
     <div className="container mx-auto p-4 pt-6 md:p-6 lg:p-12">
-      <h1 className="text-3xl font-bold mb-4">CREATE BLOG POST</h1>
+      <h1 className="flex justify-center text-3xl font-bold mb-4">
+        CREATE BLOG POST
+      </h1>
       <form
         onSubmit={handleSubmit}
         className="max-w-md mx-auto p-4 bg-white shadow-md rounded grid grid-cols-2 gap-4"
