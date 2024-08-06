@@ -12,7 +12,7 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        'home': "url('/path/to/your/image.jpg')",
+        'hero': "url('/frontend/cozyfirm/public/backgrounds/homebg.png')",
       },
       height: {
         90: '83vh',
