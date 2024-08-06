@@ -17,7 +17,7 @@ app.listen(8000, () => {
 })
 
 app.get("/", (req, res) => {
-    const q = "SELECT * FROM cozyfirm.furniture;"
+    const q = "SELECT * FROM cozyfirm.user;"
     db.query(q, (err, data) => {
         if (err) {
             return res.json(err)
@@ -28,7 +28,14 @@ app.get("/", (req, res) => {
 })
 
 app.get("/browse", (req, res) => {
-    console.log("This is the browse page.");
+    const q = "SELECT * FROM cozyfirm.furniture;"
+    db.query(q, (err, data) => {
+        if (err) {
+            return res.json(err)
+        } else {
+            return res.json(data)
+        }
+    })
 })
 
 app.get("/bloglist", (req, res) => {
@@ -81,6 +88,17 @@ app.post("/login", (req, res) => {
 
 app.get("/account", (req, res) => {
     const q = "SELECT * FROM cozyfirm.user;"
+    db.query(q, (err, data) => {
+        if (err) {
+            return res.json(err)
+        } else {
+            return res.json(data)
+        }
+    })
+})
+
+app.get("/contact", (req, res) => {
+    const q = "SELECT cozyfirm.user.user_id,cozyfirm.user.first_name, cozyfirm.user.last_name FROM cozyfirm.user, cozyfirm.user_admin where user.user_id = user_admin.user_id and user_admin.admin_level = 1"
     db.query(q, (err, data) => {
         if (err) {
             return res.json(err)
