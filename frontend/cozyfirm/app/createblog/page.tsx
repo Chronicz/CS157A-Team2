@@ -22,14 +22,21 @@ const CreateBlog = () => {
         blogData.set("blog_date", moment().format("YYYY-MM-DD"));
         blogData.set("blog_description", blogDescription);
         blogData.set("blog_tag", blogTag);
-        blogData.set("blogFile", blogImageFile);
+        blogData.set("blog_image_file", blogImageFile);
         blogData.set("user_id", userId.toString());
 
-        const res = await axios.post(
-          "http://localhost:8000/createblog",
-          blogData
-        );
-        console.log(res.data);
+        console.log(blogData.get("blog_title"));
+        console.log(blogData.get("blog_date"));
+        console.log(blogData.get("blog_description"));
+        console.log(blogData.get("blog_tag"));
+        console.log(blogData.get("blog_image_file"));
+        console.log(blogData.get("user_id"));
+
+        // const res = await axios.post(
+        //   "http://localhost:8000/createblog",
+        //   blogData
+        // );
+        // console.log(res.data);
       } catch (error: any) {
         if (error.response) {
           console.log(error.response.data);
