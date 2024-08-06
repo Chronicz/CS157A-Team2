@@ -4,6 +4,7 @@ import cors from "cors"
 const app = express()
 app.use(express.json());
 app.use(cors())
+
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -11,25 +12,12 @@ const db = mysql.createConnection({
     database: "cozyfirm"
 })
 
-app.post("/login", (req, res) => {
-    const q = "SELECT * FROM cozyfirm.user WHERE username = ? AND password = ?";
-    db.query(q, [req.body.username, req.body.password], (err, data) => {
-        if (err) { return res.json(err) }
-        if (data.length > 0) {
-            return res.json("success")
-        }
-        else {
-            return res.json("invalid")
-        }
-    })
-})
-
 app.listen(8000, () => {
     console.log("Connected to backend... PORT 8000")
 })
 
 app.get("/", (req, res) => {
-    const q = "SELECT * FROM cozyfirm.user;"
+    const q = "SELECT * FROM cozyfirm.furniture;"
     db.query(q, (err, data) => {
         if (err) {
             return res.json(err)
@@ -37,7 +25,6 @@ app.get("/", (req, res) => {
             return res.json(data)
         }
     })
-
 })
 
 app.get("/browse", (req, res) => {
@@ -87,6 +74,19 @@ app.get("/account", (req, res) => {
             return res.json(err)
         } else {
             return res.json(data)
+        }
+    })
+})
+
+app.post("/login", (req, res) => {
+    const q = "SELECT * FROM cozyfirm.user WHERE username = ? AND password = ?";
+    db.query(q, [req.body.username, req.body.password], (err, data) => {
+        if (err) { return res.json(err) }
+        if (data.length > 0) {
+            return res.json("success")
+        }
+        else {
+            return res.json("invalid")
         }
     })
 })
