@@ -54,6 +54,18 @@ app.get(`/blogpost/:blog_id`, (req, res) => {
     })
 })
 
+app.post("/createblog", (req, res) => {
+    const { blog_title, blog_date, blog_description, blog_tag, blog_image_path, user_id } = req.body;
+    const q = "INSERT INTO cozyfirm.blog (blog_title, blog_date, blog_description, blog_tag, blog_image_path, user_id) VALUES (?, ?, ?, ?, ?, ?)";
+    db.query(q, [blog_title, blog_date, blog_description, blog_tag, blog_image_path, user_id], (err, data) => {
+        if (err) {
+            return res.json(err)
+        } else {
+            return res.json({ message: "Blog post created successfully" })
+        }
+    })
+})
+
 app.post("/login", (req, res) => {
     const q = "SELECT * FROM cozyfirm.user WHERE username = ? AND password = ?";
     db.query(q, [req.body.username, req.body.password], (err, data) => {

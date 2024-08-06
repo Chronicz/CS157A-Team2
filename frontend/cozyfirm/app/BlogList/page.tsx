@@ -4,6 +4,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import BlogListEntry from "../../components/BlogListEntry";
+import Button from "../../components/buttons";
 
 const BlogList = () => {
   const [blogLists, setBlogLists] = useState<BlogListEntry[]>([]);
@@ -26,19 +27,29 @@ const BlogList = () => {
       <div className="flex flex-col items-center gap-y-4">
         <p className="text-3xl font-bold">THE COZY BLOG</p>
         <p>Search for any blogs about a specific piece of furniture!</p>
-
-        <div className="flex flex-row border-2 rounded">
-          <div className="flex items-center w-full max-w-md mx-auto">
-            <img src="/search_icon.jpg" alt="search" className="w-5 h-5 ml-2" />
-            <input
-              type="search"
-              className="pl-2 w-full text-base text-gray-700"
-              placeholder="Search..."
-            />
-            <button className="bg-black hover:bg-gray-600 text-white py-2 px-4 rounded">
-              Search
-            </button>
+        <div className="flex flex-row">
+          <div className="flex flex-row border-2 rounded">
+            <div className="flex items-center w-full max-w-md mx-auto">
+              <img
+                src="/search_icon.jpg"
+                alt="search"
+                className="w-5 h-5 ml-2"
+              />
+              <input
+                type="search"
+                className="pl-2 w-full text-base text-gray-700"
+                placeholder="Search..."
+              />
+              <button className="bg-black hover:bg-gray-600 text-white py-2 px-4 rounded">
+                Search
+              </button>
+            </div>
           </div>
+          <Button
+            type="button"
+            title="Create a post"
+            variant="btn_dark_green"
+          />
         </div>
       </div>
       <div className="grid grid-cols-3 gap-4 mt-10">
