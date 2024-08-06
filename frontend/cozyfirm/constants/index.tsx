@@ -1,8 +1,8 @@
 export const NAV_LINKS = [
     { href: '/', key: 'home', label: 'Home' },
-    { href: '/', key: 'browse', label: 'Browse' },
-    { href: '/', key: 'blog', label: 'Blog' },
-    { href: '/', key: 'contact', label: 'Contact' },
-    { href: '/', key: 'about_us', label: 'About Us' },
-    { href: '/', key: 'account', label: 'Account' }
+    { href: '/browse', key: 'browse', label: 'Browse' },
+    { href: '/bloglist', key: 'blog', label: 'Blog' },
+    { href: '/contact', key: 'contact', label: 'Contact' },
+    { href: '/aboutus', key: 'about_us', label: 'About Us' },
+    { href: '/account', key: 'account', label: 'Account' }
 ];
