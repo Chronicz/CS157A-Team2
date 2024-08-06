@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Navbar />
-        <main className="relative overflow-hidden flex justify-center items-start">
+        <main className="relative overflow-hidden flex justify-center items-start min-h-[85vh]">
           {children}
         </main>
         <Footer />
