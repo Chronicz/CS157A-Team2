@@ -7,31 +7,35 @@ const CreateBlog = () => {
   const [blogTitle, setBlogTitle] = useState("");
   const [blogDescription, setBlogDescription] = useState("");
   const [blogTag, setBlogTag] = useState("");
-  const [blogImagePath, setBlogImagePath] = useState("");
-  const [userId, setUserId] = useState(0);
+  const [blogImageFile, setBlogImageFile] = useState<File>();
+  const [userId, setUserId] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const blogData = {
-      blog_title: blogTitle,
-      blog_date: moment().format("YYYY-MM-DD"),
-      blog_description: blogDescription,
-      blog_tag: blogTag,
-      blog_image_path: blogImagePath,
-      user_id: userId,
-    };
+    if (!blogImageFile) return;
 
     const postBlog = async () => {
       try {
-        const response = await axios.post(
+        const blogData = new FormData();
+        blogData.set("blog_title", blogTitle);
+        blogData.set("blog_date", moment().format("YYYY-MM-DD"));
+        blogData.set("blog_description", blogDescription);
+        blogData.set("blog_tag", blogTag);
+        blogData.set("blogFile", blogImageFile);
+        blogData.set("user_id", userId.toString());
+
+        const res = await axios.post(
           "http://localhost:8000/createblog",
           blogData
         );
-        console.log(response.data);
-      } catch (err) {
-        console.log(err);
+        console.log(res.data);
+      } catch (error: any) {
+        if (error.response) {
+          console.log(error.response.data);
+        } else {
+          console.log(error.message);
+        }
       }
     };
     postBlog();
@@ -64,11 +68,10 @@ const CreateBlog = () => {
             />
           </label>
           <label className="block mb-2">
-            Blog Image Path:
+            Blog Image Upload:
             <input
-              type="text"
-              value={blogImagePath}
-              onChange={(event) => setBlogImagePath(event.target.value)}
+              type="file"
+              onChange={(event) => setBlogImageFile(event.target.files?.[0])}
               className="w-full p-2 pl-3 text-sm text-gray-700 border border-black"
             />
           </label>
@@ -77,7 +80,7 @@ const CreateBlog = () => {
             <input
               type="number"
               value={userId}
-              onChange={(event) => setUserId(parseInt(event.target.value, 10))}
+              onChange={(event) => setUserId(event.target.value)}
               className="w-full p-2 pl-3 text-sm text-gray-700 border border-black"
             />
           </label>
