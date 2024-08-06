@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import axios from "axios";
 import { useParams } from "next/navigation";
+import Link from "next/link";
 
 interface BlogPostEntry {
   blog_id: number;
@@ -29,25 +30,32 @@ const BlogPost = () => {
     username: "",
   });
 
-  const fetchBlogPostData = async () => {
-    try {
-      const res = await axios.get(`http://localhost:8000/blogpost/${blog_id}`);
-      setBlogPostData(res.data[0]);
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
+    const fetchBlogPostData = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:8000/blogpost/${blog_id}`
+        );
+        setBlogPostData(res.data[0]);
+        console.log(res);
+      } catch (err) {
+        console.log(err);
+      }
+    };
     fetchBlogPostData();
-    console.log(blogPostData);
   }, [blog_id]);
 
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center">
-        <p className="text-3xl font-bold">{blogPostData.blog_title}</p>
+        <div className="flex flex-row justify-center items-center">
+          <Link href="/bloglist">
+            <button className="text-lg font-normal cursor-pointer mr-4">
+              &lt; Back
+            </button>
+          </Link>
+          <p className="text-3xl font-bold">{blogPostData.blog_title}</p>
+        </div>
         <div className="flex flex-row gap-48 mt-12 mb-14">
           <p className="font-semibold">By {blogPostData.username}</p>
           <p>{moment(blogPostData.blog_date).format("YYYY-MM-DD")}</p>
