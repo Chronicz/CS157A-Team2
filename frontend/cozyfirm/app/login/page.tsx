@@ -1,12 +1,21 @@
 "use client";
 
 import React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+
+interface User {
+  user_id: number;
+  username: string;
+  password: string;
+  first_name: string;
+  last_name: string;
+}
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [users, setUsers] = useState([]);
 
   function handleSubmit(event: { preventDefault: () => void }) {
     axios
@@ -14,6 +23,19 @@ function Login() {
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   }
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const res = await axios.get("http://localhost:8000/");
+        setUsers(res.data);
+        console.log(res);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchUsers();
+  }, []);
 
   return (
     <div className="d-flex vh-100 justify-content-center align-items-center bg-primary">

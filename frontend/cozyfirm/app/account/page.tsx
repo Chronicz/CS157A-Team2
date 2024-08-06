@@ -62,20 +62,20 @@ const Account = () => {
                     title="Account Settings"
                     variant="btn_dark_green"
                   />
-                </div>
-                <div className="p-2">
-                  <Button
-                    type="button"
-                    title="Wishlist"
-                    variant="btn_dark_green"
-                  ></Button>
-                </div>
-                <div className="my-2">
-                  <Button
-                    type="button"
-                    title="My Blogs"
-                    variant="btn_dark_green"
-                  ></Button>
+                  <div className="p-2">
+                    <Button
+                      type="button"
+                      title="Wishlist"
+                      variant="btn_dark_green"
+                    ></Button>
+                  </div>
+                  <div className="my-2">
+                    <Button
+                      type="button"
+                      title="My Blogs"
+                      variant="btn_dark_green"
+                    ></Button>
+                  </div>
                 </div>
               </div>
             </div>
