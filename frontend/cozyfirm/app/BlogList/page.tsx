@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import BlogListEntry from "../../components/BlogListEntry";
 import Button from "../../components/buttons";
+import Link from "next/link";
 
 const BlogList = () => {
   const [blogLists, setBlogLists] = useState<BlogListEntry[]>([]);
@@ -45,11 +46,13 @@ const BlogList = () => {
               </button>
             </div>
           </div> */}
-          <Button
+          <button
             type="button"
             title="Create a post"
-            variant="btn_dark_green"
-          />
+            className="bg-black text-white py-2 px-4 rounded-md hover:bg-gray-900 transition duration-300 ease-in-out"
+          >
+            <Link href="/createblog">Create Blog Post</Link>
+          </button>
         </div>
       </div>
       <div className="grid grid-cols-3 gap-4 mt-10">
