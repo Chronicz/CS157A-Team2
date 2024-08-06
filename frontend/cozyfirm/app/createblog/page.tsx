@@ -1,23 +1,14 @@
 "use client";
 import React, { useState } from "react";
-
-interface createdBlogPostEntry {
-  blog_id: number;
-  blog_title: string;
-  blog_date: Date;
-  blog_description: string;
-  blog_tag: string;
-  blog_image_path: string;
-  user_id: number;
-}
+import axios from "axios";
+import moment from "moment";
 
 const CreateBlog = () => {
   const [blogTitle, setBlogTitle] = useState("");
-  const [blogDate, setBlogDate] = useState("");
   const [blogDescription, setBlogDescription] = useState("");
   const [blogTag, setBlogTag] = useState("");
   const [blogImagePath, setBlogImagePath] = useState("");
-  const [userId, setUserId] = useState("");
+  const [userId, setUserId] = useState(0);
   const [message, setMessage] = useState("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -25,89 +16,90 @@ const CreateBlog = () => {
 
     const blogData = {
       blog_title: blogTitle,
-      blog_date: blogDate,
+      blog_date: moment().format("YYYY-MM-DD"),
       blog_description: blogDescription,
       blog_tag: blogTag,
       blog_image_path: blogImagePath,
       user_id: userId,
     };
 
-    fetch("/createblog", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(blogData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setMessage("Blog post created successfully!");
-      })
-      .catch((error) => {
-        setMessage("Error creating blog post!");
-      });
+    const postBlog = async () => {
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/createblog",
+          blogData
+        );
+        console.log(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    postBlog();
   };
 
   return (
-    <div>
-      <h1>Create Blog Post</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Blog Title:
-          <input
-            type="text"
-            value={blogTitle}
-            onChange={(event) => setBlogTitle(event.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Blog Date:
-          <input
-            type="date"
-            value={blogDate}
-            onChange={(event) => setBlogDate(event.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Blog Description:
-          <textarea
-            value={blogDescription}
-            onChange={(event) => setBlogDescription(event.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Blog Tag:
-          <input
-            type="text"
-            value={blogTag}
-            onChange={(event) => setBlogTag(event.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Blog Image Path:
-          <input
-            type="text"
-            value={blogImagePath}
-            onChange={(event) => setBlogImagePath(event.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          User ID:
-          <input
-            type="number"
-            value={userId}
-            onChange={(event) => setUserId(event.target.value)}
-          />
-        </label>
-        <br />
-        <input type="submit" value="Create Blog Post" />
+    <div className="container mx-auto p-4 pt-6 md:p-6 lg:p-12">
+      <h1 className="text-3xl font-bold mb-4">CREATE BLOG POST</h1>
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-md mx-auto p-4 bg-white shadow-md rounded grid grid-cols-2 gap-4"
+      >
+        <div className="col-span-1">
+          <label className="block mb-2">
+            Blog Title:
+            <input
+              type="text"
+              value={blogTitle}
+              onChange={(event) => setBlogTitle(event.target.value)}
+              className="w-full p-2 pl-3 text-sm text-gray-700 border border-black"
+            />
+          </label>
+          <label className="block mb-2">
+            Blog Tag:
+            <input
+              type="text"
+              value={blogTag}
+              onChange={(event) => setBlogTag(event.target.value)}
+              className="w-full p-2 pl-3 text-sm text-gray-700 border border-black"
+            />
+          </label>
+          <label className="block mb-2">
+            Blog Image Path:
+            <input
+              type="text"
+              value={blogImagePath}
+              onChange={(event) => setBlogImagePath(event.target.value)}
+              className="w-full p-2 pl-3 text-sm text-gray-700 border border-black"
+            />
+          </label>
+          <label className="block mb-2">
+            User ID:
+            <input
+              type="number"
+              value={userId}
+              onChange={(event) => setUserId(parseInt(event.target.value, 10))}
+              className="w-full p-2 pl-3 text-sm text-gray-700 border border-black"
+            />
+          </label>
+        </div>
+        <div className="col-span-1">
+          <label className="block mb-2">
+            Blog Description:
+            <textarea
+              value={blogDescription}
+              onChange={(event) => setBlogDescription(event.target.value)}
+              className="w-full h-full p-2 pl-3 text-sm text-gray-700 border border-black"
+            />
+          </label>
+        </div>
+        <button
+          type="submit"
+          className="bg-black hover:bg-gray-600 text-white font-bold py-2 px-4 rounded col-span-2"
+        >
+          Create Blog Post
+        </button>
       </form>
-      <p>{message}</p>
+      <p className="text-sm text-gray-600">{message}</p>
     </div>
   );
 };
