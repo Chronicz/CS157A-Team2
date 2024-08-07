@@ -50,12 +50,11 @@ const BlogPost = () => {
     fetchBlogPostData();
   }, [blog_id]);
   {
-    /* <p className="text-3xl font-bold">{blogPostData.blog_title}</p> */
   }
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center">
-        <div className="flex flex-row justify-between items-center">
+        <div className="w-3/4 flex flex-row justify-between items-center">
           <div className="flex justify-start">
             <Link href="/bloglist">
               <button className="text-lg font-normal cursor-pointer mr-4">
@@ -77,7 +76,7 @@ const BlogPost = () => {
           alt="Chair/Table"
           className="h-80 w-80 border-2 border-black mb-4"
         />
-        <p className="mt-4">{blogPostData.blog_description}</p>
+        <p className="ml-56 mr-56 mt-4 mb-4">{blogPostData.blog_description}</p>
       </div>
     </div>
   );
