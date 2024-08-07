@@ -83,8 +83,7 @@ app.post('/createblog', upload.fields(fields), (req, res) => {
     ""
   );
   const parsedUserId = parseInt(user_id, 10);
-  
-  // Now you can use the uploaded file and the request body to create a new blog post
+
   const q = "INSERT INTO cozyfirm.blog (blog_title, blog_date, blog_description, blog_tag, blog_image_path, user_id) VALUES (?, ?, ?, ?, ?, ?)";
   const values = [blog_title, blog_date, blog_description, blog_tag, imagePath, parsedUserId];
   

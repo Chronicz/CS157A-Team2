@@ -3,14 +3,18 @@ import React, { useState } from "react";
 import axios from "axios";
 import moment from "moment";
 import Link from "next/link";
+import SuccessPopup from "../../components/SuccessPopup";
 
 const CreateBlog = () => {
   const [blogTitle, setBlogTitle] = useState("");
   const [blogDescription, setBlogDescription] = useState("");
   const [blogTag, setBlogTag] = useState("");
-  const [blogImageFile, setBlogImageFile] = useState<File>();
+  const [blogImageFile, setBlogImageFile] = useState<File | undefined | null>(
+    undefined
+  );
   const [userId, setUserId] = useState("");
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("Blog not added successfully!");
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -26,20 +30,17 @@ const CreateBlog = () => {
         blogData.append("blog_image_file", blogImageFile);
         blogData.append("user_id", userId.toString());
 
-        console.log(blogData.get("blog_title"));
-        console.log(blogData.get("blog_date"));
-        console.log(blogData.get("blog_description"));
-        console.log(blogData.get("blog_tag"));
-        console.log(blogData.get("blog_image_file"));
-        console.log(blogData.get("user_id"));
-
         const res = await axios.post(
           "http://localhost:8000/createblog",
           blogData
         );
         console.log(res.data);
+
+        setMessage("Blog added successfully!");
+        setShowSuccessPopup(true);
       } catch (error: any) {
         if (error.response) {
+          setShowSuccessPopup(true);
           console.log(error.response.data);
         } else {
           console.log(error.message);
@@ -47,6 +48,16 @@ const CreateBlog = () => {
       }
     };
     postBlog();
+  };
+
+  const handleCloseSuccessPopup = () => {
+    setShowSuccessPopup(false);
+    setBlogTitle("");
+    setBlogDescription("");
+    setBlogTag("");
+    setBlogImageFile(null);
+    setUserId("");
+    console.log(blogImageFile);
   };
 
   return (
@@ -153,7 +164,9 @@ const CreateBlog = () => {
           Create Blog Post
         </button>
       </form>
-      <p className="text-sm text-gray-600">{message}</p>
+      {showSuccessPopup && (
+        <SuccessPopup message={message} onClose={handleCloseSuccessPopup} />
+      )}
     </div>
   );
 };
