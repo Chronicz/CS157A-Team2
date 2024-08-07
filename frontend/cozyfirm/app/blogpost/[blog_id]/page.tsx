@@ -49,17 +49,24 @@ const BlogPost = () => {
     };
     fetchBlogPostData();
   }, [blog_id]);
-
+  {
+    /* <p className="text-3xl font-bold">{blogPostData.blog_title}</p> */
+  }
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center">
-        <div className="flex flex-row justify-center items-center">
-          <Link href="/bloglist">
-            <button className="text-lg font-normal cursor-pointer mr-4">
-              &lt; Back
-            </button>
-          </Link>
-          <p className="text-3xl font-bold">{blogPostData.blog_title}</p>
+        <div className="flex flex-row justify-between items-center">
+          <div className="flex justify-start">
+            <Link href="/bloglist">
+              <button className="text-lg font-normal cursor-pointer mr-4">
+                &lt; Back
+              </button>
+            </Link>
+          </div>
+          <p className="flex justify-center text-3xl font-bold">
+            {blogPostData.blog_title}
+          </p>
+          <div className="flex justify-end"></div>
         </div>
         <div className="flex flex-row gap-48 mt-12 mb-14">
           <p className="font-semibold">By {blogPostData.username}</p>
