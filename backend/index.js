@@ -57,7 +57,16 @@ app.get(`/blogpost/:blog_id`, (req, res) => {
 })
 
 
-const upload = multer({ dest: '/furniture_images' });
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, '/furniture_images');
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.originalname);
+    },
+  });
+  
+  const upload = multer({ storage: storage });
 
 const fields = [
   { name: 'blog_image_file', maxCount: 1 },
@@ -69,7 +78,7 @@ app.post('/createblog', upload.fields(fields), (req, res) => {
     console.log(req.files);
   
   const { blog_title, blog_date, blog_description, blog_tag, user_id } = req.body;
-  const filePath = req.files.blog_image_file[0].path;
+  const filePath = req.files.blog_image_file[0].path.replace(/\\/g, '/');
   const parsedUserId = parseInt(user_id, 10);
   
   // Now you can use the uploaded file and the request body to create a new blog post
