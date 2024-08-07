@@ -59,7 +59,7 @@ app.get(`/blogpost/:blog_id`, (req, res) => {
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, '/furniture_images');
+      cb(null, '/frontend/cozyfirm/public/furniture_images');
     },
     filename: (req, file, cb) => {
       cb(null, file.originalname);
