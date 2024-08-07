@@ -36,7 +36,12 @@ const BlogPost = () => {
         const res = await axios.get(
           `http://localhost:8000/blogpost/${blog_id}`
         );
-        setBlogPostData(res.data[0]);
+        const blogPostData = res.data[0];
+        const imagePath = blogPostData.blog_image_path.replace(
+          "../frontend/cozyfirm/public",
+          ""
+        );
+        setBlogPostData({ ...blogPostData, blog_image_path: imagePath });
         console.log(res);
       } catch (err) {
         console.log(err);

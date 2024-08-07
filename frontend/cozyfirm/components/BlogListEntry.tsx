@@ -18,12 +18,16 @@ interface BlogListEntryProps extends BlogListEntry {
 }
 
 const BlogListEntry = ({ className, ...entryData }: BlogListEntryProps) => {
+  const imagePath = entryData.blog_image_path.replace(
+    "../frontend/cozyfirm/public",
+    ""
+  );
   return (
     <Link href={`/blogpost/${entryData.blog_id}`}>
       <div className={className}>
         <div className="flex flex-col items-center">
           <img
-            src={entryData.blog_image_path}
+            src={imagePath}
             alt="Chair/Table"
             className="h-48 w-48 border-2 border-black mb-4"
           />
