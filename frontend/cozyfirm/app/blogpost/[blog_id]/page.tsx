@@ -37,11 +37,7 @@ const BlogPost = () => {
           `http://localhost:8000/blogpost/${blog_id}`
         );
         const blogPostData = res.data[0];
-        const imagePath = blogPostData.blog_image_path.replace(
-          "../frontend/cozyfirm/public",
-          ""
-        );
-        setBlogPostData({ ...blogPostData, blog_image_path: imagePath });
+        setBlogPostData(blogPostData);
         console.log(res);
       } catch (err) {
         console.log(err);
@@ -49,8 +45,7 @@ const BlogPost = () => {
     };
     fetchBlogPostData();
   }, [blog_id]);
-  {
-  }
+
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center">

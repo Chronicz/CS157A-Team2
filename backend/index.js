@@ -78,11 +78,15 @@ app.post('/createblog', upload.fields(fields), (req, res) => {
   
   const { blog_title, blog_date, blog_description, blog_tag, user_id } = req.body;
   const filePath = req.files.blog_image_file[0].path.replace(/\\/g, '/');
+  const imagePath = filePath.replace(
+    "../frontend/cozyfirm/public",
+    ""
+  );
   const parsedUserId = parseInt(user_id, 10);
   
   // Now you can use the uploaded file and the request body to create a new blog post
   const q = "INSERT INTO cozyfirm.blog (blog_title, blog_date, blog_description, blog_tag, blog_image_path, user_id) VALUES (?, ?, ?, ?, ?, ?)";
-  const values = [blog_title, blog_date, blog_description, blog_tag, filePath, parsedUserId];
+  const values = [blog_title, blog_date, blog_description, blog_tag, imagePath, parsedUserId];
   
   db.query(q, values, (err, results) => {
     if (err) {
