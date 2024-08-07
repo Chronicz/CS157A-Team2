@@ -18,12 +18,19 @@ const CreateBlog = () => {
     const postBlog = async () => {
       try {
         const blogData = new FormData();
-        blogData.set("blog_title", blogTitle);
-        blogData.set("blog_date", moment().format("YYYY-MM-DD"));
-        blogData.set("blog_description", blogDescription);
-        blogData.set("blog_tag", blogTag);
-        blogData.set("blogFile", blogImageFile);
-        blogData.set("user_id", userId.toString());
+        blogData.append("blog_title", blogTitle);
+        blogData.append("blog_date", moment().format("YYYY-MM-DD"));
+        blogData.append("blog_description", blogDescription);
+        blogData.append("blog_tag", blogTag);
+        blogData.append("blog_image_file", blogImageFile);
+        blogData.append("user_id", userId.toString());
+
+        console.log(blogData.get("blog_title"));
+        console.log(blogData.get("blog_date"));
+        console.log(blogData.get("blog_description"));
+        console.log(blogData.get("blog_tag"));
+        console.log(blogData.get("blog_image_file"));
+        console.log(blogData.get("user_id"));
 
         const res = await axios.post(
           "http://localhost:8000/createblog",

@@ -64,42 +64,43 @@ app.get(`/blogpost/:blog_id`, (req, res) => {
 })
 
 
-const upload = multer({ dest: `C:/Users/kethy/Documents/School/SJSU/Summer2024/CS157A/CS157A-Team2/frontend/cozyfirm/public/furniture_images` });
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, '/furniture_images');
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.originalname);
+    },
+  });
+  
+  const upload = multer({ storage: storage });
 
-app.post('/createblog', upload.single('file'), async (req, res) => {
-    try {
-      if (!req.file) {
-        return res.status(400).json({ message: 'No file provided' });
-      }
+const fields = [
+  { name: 'blog_image_file', maxCount: 1 },
+];
+
+app.post('/createblog', upload.fields(fields), (req, res) => {
+    
+    console.log(req.body);
+    console.log(req.files);
   
-      if (!req.body.blog_title || !req.body.blog_date || !req.body.blog_description || !req.body.blog_tag || !req.body.user_id) {
-        return res.status(400).json({ message: 'All fields are required' });
-      }
+  const { blog_title, blog_date, blog_description, blog_tag, user_id } = req.body;
+  const filePath = req.files.blog_image_file[0].path.replace(/\\/g, '/');
+  const parsedUserId = parseInt(user_id, 10);
   
-      const { blog_title, blog_date, blog_description, blog_tag, user_id: userId } = req.body;
-      const parsedUserId = parseInt(userId, 10);
+  // Now you can use the uploaded file and the request body to create a new blog post
+  const q = "INSERT INTO cozyfirm.blog (blog_title, blog_date, blog_description, blog_tag, blog_image_path, user_id) VALUES (?, ?, ?, ?, ?, ?)";
+  const values = [blog_title, blog_date, blog_description, blog_tag, filePath, parsedUserId];
   
-      const filePath = `C:/Users/kethy/Documents/School/SJSU/Summer2024/CS157A/CS157A-Team2/frontend/cozyfirm/public/furniture_images/${req.file.originalname }`;
-  
-      fs.rename(req.file.path, filePath, (err) => {
-        if (err) {
-          console.error(err);
-        }
-      });
-  
-      const q = "INSERT INTO cozyfirm.blog (blog_title, blog_date, blog_description, blog_tag, blog_image_path, user_id) VALUES (?, ?, ?, ?, ?, ?)";
-      db.query(q, [blog_title, blog_date, blog_description, blog_tag, filePath, parsedUserId], (err, data) => {
-        if (err) {
-          return res.status(500).json({ message: 'Failed to create blog post' });
-        } else {
-          return res.json({ message: "Blog post created successfully" });
-        }
-      });
-    } catch (err) {
+  db.query(q, values, (err, results) => {
+    if (err) {
       console.error(err);
-      return res.status(500).json({ message: 'Internal Server Error' });
+      res.status(500).send(`Error creating blog post: ${err.message}`);
+    } else {
+      res.send(`Blog post created successfully!`);
     }
   });
+});
   
 
 app.post("/login", (req, res) => {
