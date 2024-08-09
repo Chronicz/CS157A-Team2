@@ -47,6 +47,12 @@ const Browse = ({ defaultValue }: iDefault) => {
                     setFurnitures(res.data);
                 })
                 .catch((err) => console.log(err));
+        } else {
+            // If the search input is empty, fetch all the furniture items
+            axios
+                .get("http://localhost:8000/browse")
+                .then((res) => setFurnitures(res.data))
+                .catch((err) => console.log(err));
         }
     };
 
