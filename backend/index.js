@@ -30,15 +30,20 @@ app.get("/", (req, res) => {
 })
 
 app.get("/browse", (req, res) => {
-    const q = "SELECT * FROM cozyfirm.furniture;"
-    db.query(q, (err, data) => {
+    const { furniture_name } = req.query;
+    let q = "SELECT * FROM cozyfirm.furniture";
+
+    if (furniture_name) {
+        q += " WHERE furniture_name LIKE ?";
+    }
+
+    db.query(q, [`%${furniture_name}%`], (err, data) => {
         if (err) {
-            return res.json(err)
-        } else {
-            return res.json(data)
+            return res.status(500).json({ error: err.message });
         }
-    })
-})
+        return res.json(data);
+    });
+});
 
 app.get("/bloglist", (req, res) => {
     const q = "SELECT b.*, u.username FROM cozyfirm.blog b JOIN cozyfirm.user u ON b.user_id = u.user_id";
@@ -66,42 +71,42 @@ app.get(`/blogpost/:blog_id`, (req, res) => {
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, '/furniture_images');
+        cb(null, '/furniture_images');
     },
     filename: (req, file, cb) => {
-      cb(null, file.originalname);
+        cb(null, file.originalname);
     },
-  });
-  
-  const upload = multer({ storage: storage });
+});
+
+const upload = multer({ storage: storage });
 
 const fields = [
-  { name: 'blog_image_file', maxCount: 1 },
+    { name: 'blog_image_file', maxCount: 1 },
 ];
 
 app.post('/createblog', upload.fields(fields), (req, res) => {
-    
+
     console.log(req.body);
     console.log(req.files);
-  
-  const { blog_title, blog_date, blog_description, blog_tag, user_id } = req.body;
-  const filePath = req.files.blog_image_file[0].path.replace(/\\/g, '/');
-  const parsedUserId = parseInt(user_id, 10);
-  
-  // Now you can use the uploaded file and the request body to create a new blog post
-  const q = "INSERT INTO cozyfirm.blog (blog_title, blog_date, blog_description, blog_tag, blog_image_path, user_id) VALUES (?, ?, ?, ?, ?, ?)";
-  const values = [blog_title, blog_date, blog_description, blog_tag, filePath, parsedUserId];
-  
-  db.query(q, values, (err, results) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send(`Error creating blog post: ${err.message}`);
-    } else {
-      res.send(`Blog post created successfully!`);
-    }
-  });
+
+    const { blog_title, blog_date, blog_description, blog_tag, user_id } = req.body;
+    const filePath = req.files.blog_image_file[0].path.replace(/\\/g, '/');
+    const parsedUserId = parseInt(user_id, 10);
+
+    // Now you can use the uploaded file and the request body to create a new blog post
+    const q = "INSERT INTO cozyfirm.blog (blog_title, blog_date, blog_description, blog_tag, blog_image_path, user_id) VALUES (?, ?, ?, ?, ?, ?)";
+    const values = [blog_title, blog_date, blog_description, blog_tag, filePath, parsedUserId];
+
+    db.query(q, values, (err, results) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send(`Error creating blog post: ${err.message}`);
+        } else {
+            res.send(`Blog post created successfully!`);
+        }
+    });
 });
-  
+
 
 app.post("/login", (req, res) => {
     const q = "SELECT * FROM cozyfirm.user WHERE username = ? AND password = ?";
