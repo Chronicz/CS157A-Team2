@@ -36,11 +36,11 @@ body {
   }
 
   .max-container {
-    @apply mx-auto max-w-[1440px];
+    @apply mx-auto max-w-[2560px];
   }
 
   .padding-container {
-    @apply px-6 lg:px-20 xl:px-0;
+    @apply px-6 lg:px-20 xl:px-20;
   }
 
   .flexCenter {
@@ -126,21 +126,6 @@ body {
 
   .bold-16 {
     @apply text-[16px] font-[700];
-  }
-
-  /* Hero */
-  .hero-map {
-    @apply absolute right-0 top-0 h-screen w-screen bg-pattern-2 bg-cover bg-center md:-right-28 xl:-top-60;
-  }
-
-  /* Camp */
-  .camp-quote {
-    @apply absolute -right-6 bottom-4 w-[140px] lg:bottom-10 xl:-right-8 xl:w-[186px] 3xl:right-0;
-  }
-
-  /* Feature */
-  .feature-phone {
-    @apply absolute top-[13%] z-10 hidden max-w-[1500px] rotate-[15deg] md:-left-16 lg:flex 3xl:left-20;
   }
 
   /* Get App */

@@ -4,7 +4,7 @@ import Button from "../components/buttons";
 import Image from "next/image";
 const navbar = () => {
     return (
-        <nav className="border-2 flexBetween max-container padding-container relative z-30 py-5">
+        <nav className="border-2 flexBetween max-container padding-container relative z-30 py-5 min-h-[10vh]">
             <Link href="/" className="font-bold">
                 COZYFIRM
             </Link>
@@ -16,21 +16,24 @@ const navbar = () => {
                 ))}
             </ul>
 
-            <div className="lg:flexCenter hidden">
-                <Button
-                    type="button"
-                    title="Login"
-                    variant="btn_dark_green"
-                />
-            </div>
+            <Link href="/login">
+                <div className="lg:flexCenter hidden">
+                    <Button
+                        type="button"
+                        title="Login"
+                        variant="btn_dark_green"
+                    />
+                </div>
 
-            <Image
-                src="menu.svg"
-                alt="menu"
-                width={32}
-                height={32}
-                className="inline-block cursor-pointer lg:hidden"
-            />
+                <Image
+                    src="menu.svg"
+                    alt="menu"
+                    width={32}
+                    height={32}
+                    className="inline-block cursor-pointer lg:hidden"
+                />
+            </Link>
+
         </nav>
     )
 }

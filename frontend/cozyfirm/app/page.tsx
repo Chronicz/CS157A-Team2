@@ -3,38 +3,44 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Button from "../components/buttons";
-import Login from "./login/page";
-import Account from "./account/page";
 
-interface User {
-  user_id: number;
-  username: string;
-  password: string;
-  first_name: string;
-  last_name: string;
+interface Furniture {
+  furniture_id: number;
+  furniture_name: string;
+  brand: string;
+  description: string;
+  length: number;
+  height: number;
+  width: number;
+  price: number;
+  material: string;
+  color: string;
 }
 
 const Home = () => {
-  const [users, setUsers] = useState([]);
+  const [furnitures, setFurnitures] = useState([]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchFurnitures = async () => {
       try {
         const res = await axios.get("http://localhost:8000");
-        setUsers(res.data);
+        setFurnitures(res.data);
         console.log(res);
       } catch (err) {
         console.log(err);
       }
     };
-    fetchUsers();
+    fetchFurnitures();
   }, []);
 
   return (
     <div>
-      <Account></Account>
+      <div className="bold-40 py-20">
+        Build your Cozy Corner
+      </div>
+
     </div>
+
   );
 };
 

@@ -46,16 +46,16 @@ function Login() {
             <input
               type="username"
               placeholder="Enter username"
-              className="form-control"
+              className="form-control mx-4"
               onChange={(e) => setUsername(e.target.value)}
             ></input>
           </div>
           <div>
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Password </label>
             <input
               type="password"
               placeholder="Enter password"
-              className="form-control"
+              className="form-control mx-4"
               onChange={(e) => setPassword(e.target.value)}
             ></input>
           </div>
