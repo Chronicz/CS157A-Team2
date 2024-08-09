@@ -2,7 +2,6 @@ import express from "express"
 import mysql from "mysql2"
 import cors from "cors"
 import multer from 'multer';
-import { promises as fs } from 'fs';
 const app = express()
 app.use(express.json());
 app.use(cors())
@@ -41,7 +40,7 @@ app.get("/browse", (req, res) => {
 })
 
 app.get("/bloglist", (req, res) => {
-    const q = "SELECT b.*, u.username FROM cozyfirm.blog b JOIN cozyfirm.user u ON b.user_id = u.user_id";
+    const q = "SELECT b.*, u.username FROM cozyfirm.blog b JOIN cozyfirm.user u ON b.user_id = u.user_id ORDER BY b.blog_id ASC";
     db.query(q, (err, data) => {
         if (err) {
             return res.json(err)
@@ -66,7 +65,7 @@ app.get(`/blogpost/:blog_id`, (req, res) => {
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, '/furniture_images');
+      cb(null, '../frontend/cozyfirm/public/furniture_images');
     },
     filename: (req, file, cb) => {
       cb(null, file.originalname);
@@ -86,11 +85,14 @@ app.post('/createblog', upload.fields(fields), (req, res) => {
   
   const { blog_title, blog_date, blog_description, blog_tag, user_id } = req.body;
   const filePath = req.files.blog_image_file[0].path.replace(/\\/g, '/');
+  const imagePath = filePath.replace(
+    "../frontend/cozyfirm/public",
+    ""
+  );
   const parsedUserId = parseInt(user_id, 10);
-  
-  // Now you can use the uploaded file and the request body to create a new blog post
+
   const q = "INSERT INTO cozyfirm.blog (blog_title, blog_date, blog_description, blog_tag, blog_image_path, user_id) VALUES (?, ?, ?, ?, ?, ?)";
-  const values = [blog_title, blog_date, blog_description, blog_tag, filePath, parsedUserId];
+  const values = [blog_title, blog_date, blog_description, blog_tag, imagePath, parsedUserId];
   
   db.query(q, values, (err, results) => {
     if (err) {

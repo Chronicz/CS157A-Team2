@@ -24,7 +24,7 @@ const BlogListEntry = ({ className, ...entryData }: BlogListEntryProps) => {
         <div className="flex flex-col items-center">
           <img
             src={entryData.blog_image_path}
-            alt="Chair/Table"
+            alt="entry/Table"
             className="h-48 w-48 border-2 border-black mb-4"
           />
           <div className="flex flex-col">
