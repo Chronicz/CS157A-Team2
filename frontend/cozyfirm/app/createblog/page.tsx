@@ -50,18 +50,20 @@ const CreateBlog = () => {
     postBlog();
   };
 
+  const [fileInputKey, setFileInputKey] = useState(Date.now());
+
   const handleCloseSuccessPopup = () => {
     setShowSuccessPopup(false);
     setBlogTitle("");
     setBlogDescription("");
     setBlogTag("");
-    setBlogImageFile(null);
     setUserId("");
-    console.log(blogImageFile);
+    setBlogImageFile(null);
+    setFileInputKey(Date.now()); // Update the key
   };
 
   return (
-    <div className="w-3/4 mx-auto p-4 pt-6 md:p-6 lg:p-12">
+    <div className="w-3/4 h-full mx-auto p-4 pt-6 md:p-6 lg:p-12">
       <div className="flex flex-row justify-between items-center">
         <div className="flex justify-start">
           <Link href="/bloglist">
@@ -121,6 +123,7 @@ const CreateBlog = () => {
             <input
               id="blogImageFile"
               type="file"
+              key={fileInputKey} // Add a key to the file input element
               onChange={(event) => setBlogImageFile(event.target.files?.[0])}
               className="w-80 p-2 pl-3 text-sm text-gray-700 border border-black"
             />
