@@ -55,7 +55,7 @@ const BlogList = () => {
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-4 mt-10">
+      <div className="grid grid-cols-3 gap-y-14 mt-10">
         {blogLists.map((blogList, index) => (
           <BlogListEntry key={index} {...blogList} />
         ))}

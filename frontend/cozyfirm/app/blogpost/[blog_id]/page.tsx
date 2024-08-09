@@ -36,7 +36,8 @@ const BlogPost = () => {
         const res = await axios.get(
           `http://localhost:8000/blogpost/${blog_id}`
         );
-        setBlogPostData(res.data[0]);
+        const blogPostData = res.data[0];
+        setBlogPostData(blogPostData);
         console.log(res);
       } catch (err) {
         console.log(err);
@@ -48,13 +49,18 @@ const BlogPost = () => {
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center">
-        <div className="flex flex-row justify-center items-center">
-          <Link href="/bloglist">
-            <button className="text-lg font-normal cursor-pointer mr-4">
-              &lt; Back
-            </button>
-          </Link>
-          <p className="text-3xl font-bold">{blogPostData.blog_title}</p>
+        <div className="w-3/4 flex flex-row justify-between items-center">
+          <div className="flex justify-start">
+            <Link href="/bloglist">
+              <button className="text-lg font-normal cursor-pointer mr-4">
+                &lt; Back
+              </button>
+            </Link>
+          </div>
+          <p className="flex justify-center text-3xl font-bold">
+            {blogPostData.blog_title}
+          </p>
+          <div className="flex justify-end"></div>
         </div>
         <div className="flex flex-row gap-48 mt-12 mb-14">
           <p className="font-semibold">By {blogPostData.username}</p>
@@ -65,7 +71,7 @@ const BlogPost = () => {
           alt="Chair/Table"
           className="h-80 w-80 border-2 border-black mb-4"
         />
-        <p className="mt-4">{blogPostData.blog_description}</p>
+        <p className="ml-56 mr-56 mt-4 mb-4">{blogPostData.blog_description}</p>
       </div>
     </div>
   );
