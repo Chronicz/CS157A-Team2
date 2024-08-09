@@ -10,7 +10,7 @@ app.use(cors())
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "He110#4023",
+    password: "Nakirigumi519!",
     database: "cozyfirm"
 })
 
@@ -137,3 +137,8 @@ app.get("/contact", (req, res) => {
         }
     })
 })
+
+app.use("/login", (req, res) =>
+{
+    res.send({token: "test123"});
+});
