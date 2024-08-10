@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import util from "util";
-import db from "../../../../../util/db";
-import NextAuth from "next-auth/next";
+import db from "../../../util/db";
+import NextAuth from "../../../auth"
 import CredentialsProvider from "next-auth/providers/credentials";
+import { handlers } from "../../../auth";
+import {AUTH_SECRET} from "../../../.env.local";
 
 const query = util.promisify(db.query).bind(db);
 
@@ -29,8 +31,7 @@ export const authOption = {
             }
         })
     ],
-    secret: 'hhhh'
+    secret : AUTH_SECRET
 }
 
-const handler = NextAuth(authOption);
-export {handler as GET , handler as POST}
+export const {GET, POST} = handlers;
