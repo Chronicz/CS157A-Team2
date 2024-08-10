@@ -119,26 +119,46 @@ app.post('/createblog', upload.fields(fields), (req, res) => {
 // const fields = [
 //   { name: 'blog_image_file', maxCount: 1 },
 // ];
+const fs = require('fs');
 
 app.put('/editblog/:blog_id', upload.fields(fields), (req, res) => {
-    const { edit_blog_title, edit_blog_date, edit_blog_description, edit_blog_tag, blog_image_file, edit_user_id } = req.body;
+    const { edit_blog_title, edit_blog_date, edit_blog_description, edit_blog_tag, edit_user_id } = req.body;
     const blogId = req.params.blog_id;
     const parsedUserId = parseInt(edit_user_id, 10);
     const filePath = req.files.blog_image_file[0].path.replace(/\\/g, '/');
-    const imagePath = filePath.replace(
-      "../frontend/cozyfirm/public",
-      ""
-    )
+    const imagePath = filePath.replace("../frontend/cozyfirm/public", "");
   
-    const q = "UPDATE `cozyfirm`.`blog` SET `blog_title` = ?, `blog_date` = ?, `blog_description` = ?, `blog_tag` = ?, `blog_image_path` = ?, `user_id` = ? WHERE `blog_id` = ?";
-    const values = [edit_blog_title, edit_blog_date, edit_blog_description, edit_blog_tag, imagePath, parsedUserId, blogId];
-  
-    db.query(q, values, (err, results) => {
+    // Retrieve the old image path from the database
+    const q = "SELECT `blog_image_path` FROM `cozyfirm`.`blog` WHERE `blog_id` = ?";
+    db.query(q, [blogId], (err, results) => {
       if (err) {
         console.error(err);
-        res.status(500).send(`Error updating blog post: ${err.message}`);
+        res.status(500).send(`Error retrieving old image path: ${err.message}`);
       } else {
-        res.send(`Blog post updated successfully!`);
+        const oldImagePath = results[0].blog_image_path;
+  
+        // Delete the old image file
+        const oldImageFullPath = `../frontend/cozyfirm/public${oldImagePath}`;
+
+        console.log(oldImagePath);
+        
+        fs.unlink(oldImageFullPath, (err) => {
+          if (err) {
+            console.error(err);
+          }
+        });
+  
+        // Update the blog post
+        const updateQ = "UPDATE `cozyfirm`.`blog` SET `blog_title` = ?, `blog_date` = ?, `blog_description` = ?, `blog_tag` = ?, `blog_image_path` = ?, `user_id` = ? WHERE `blog_id` = ?";
+        const values = [edit_blog_title, edit_blog_date, edit_blog_description, edit_blog_tag, imagePath, parsedUserId, blogId];
+        db.query(updateQ, values, (err, results) => {
+          if (err) {
+            console.error(err);
+            res.status(500).send(`Error updating blog post: ${err.message}`);
+          } else {
+            res.send(`Blog post updated successfully!`);
+          }
+        });
       }
     });
   });
