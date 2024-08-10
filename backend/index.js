@@ -2,6 +2,7 @@ import express from "express"
 import mysql from "mysql2"
 import cors from "cors"
 import multer from 'multer';
+import fs from 'fs';
 const app = express()
 app.use(express.json());
 app.use(cors())
@@ -84,31 +85,66 @@ const fields = [
 ];
 
 app.post('/createblog', upload.fields(fields), (req, res) => {
+  
+  const { blog_title, blog_date, blog_description, blog_tag, user_id } = req.body;
+  const filePath = req.files.blog_image_file[0].path.replace(/\\/g, '/');
+  const imagePath = filePath.replace(
+    "../frontend/cozyfirm/public",
+    ""
+  );
+  const parsedUserId = parseInt(user_id, 10);
 
-    console.log(req.body);
-    console.log(req.files);
-
-    const { blog_title, blog_date, blog_description, blog_tag, user_id } = req.body;
-    const filePath = req.files.blog_image_file[0].path.replace(/\\/g, '/');
-    const imagePath = filePath.replace(
-        "../frontend/cozyfirm/public",
-        ""
-    );
-    const parsedUserId = parseInt(user_id, 10);
-
-    const q = "INSERT INTO cozyfirm.blog (blog_title, blog_date, blog_description, blog_tag, blog_image_path, user_id) VALUES (?, ?, ?, ?, ?, ?)";
-    const values = [blog_title, blog_date, blog_description, blog_tag, imagePath, parsedUserId];
-
-    db.query(q, values, (err, results) => {
-        if (err) {
-            console.error(err);
-            res.status(500).send(`Error creating blog post: ${err.message}`);
-        } else {
-            res.send(`Blog post created successfully!`);
-        }
-    });
+  const q = "INSERT INTO cozyfirm.blog (blog_title, blog_date, blog_description, blog_tag, blog_image_path, user_id) VALUES (?, ?, ?, ?, ?, ?)";
+  const values = [blog_title, blog_date, blog_description, blog_tag, imagePath, parsedUserId];
+  
+  db.query(q, values, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send(`Error creating blog post: ${err.message}`);
+    } else {
+      res.send(`Blog post created successfully!`);
+    }
+  });
 });
 
+app.put('/editblog/:blog_id', upload.fields(fields), (req, res) => {
+    const { edit_blog_title, edit_blog_date, edit_blog_description, edit_blog_tag, edit_user_id } = req.body;
+    const blogId = req.params.blog_id;
+    const parsedUserId = parseInt(edit_user_id, 10);
+    const filePath = req.files.blog_image_file[0].path.replace(/\\/g, '/');
+    const imagePath = filePath.replace("../frontend/cozyfirm/public", "");
+ 
+    const q = "SELECT `blog_image_path` FROM `cozyfirm`.`blog` WHERE `blog_id` = ?";
+    db.query(q, [blogId], (err, results) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send(`Error retrieving old image path: ${err.message}`);
+      } else {
+     
+        const oldImagePath = results[0].blog_image_path;
+
+        const oldImageFullPath = `../frontend/cozyfirm/public${oldImagePath}`;
+
+        fs.unlinkSync(oldImageFullPath, (err) => {
+          if (err) {
+            console.error(err);
+          }
+        });
+
+        const updateQ = "UPDATE `cozyfirm`.`blog` SET `blog_title` = ?, `blog_date` = ?, `blog_description` = ?, `blog_tag` = ?, `blog_image_path` = ?, `user_id` = ? WHERE `blog_id` = ?";
+        const values = [edit_blog_title, edit_blog_date, edit_blog_description, edit_blog_tag, imagePath, parsedUserId, blogId];
+        db.query(updateQ, values, (err, results) => {
+          if (err) {
+            console.error(err);
+            res.status(500).send(`Error updating blog post: ${err.message}`);
+          } else {
+            res.send(`Blog post updated successfully!`);
+          }
+        });
+      }
+    });
+  });
+  
 
 app.post("/login", (req, res) => {
     const q = "SELECT * FROM cozyfirm.user WHERE username = ? AND password = ?";
