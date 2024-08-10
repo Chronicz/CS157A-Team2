@@ -139,8 +139,3 @@ app.get("/contact", (req, res) => {
         }
     })
 })
-
-app.use("/login", (req, res) =>
-{
-    res.send({token: "test123"});
-});

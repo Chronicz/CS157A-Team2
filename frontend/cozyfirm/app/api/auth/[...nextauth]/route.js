@@ -3,16 +3,16 @@ import util from "util";
 import db from "../../../util/db";
 import NextAuth from "../../../auth"
 import CredentialsProvider from "next-auth/providers/credentials";
-import { handlers } from "../../../auth";
-import {AUTH_SECRET} from "../../../.env.local";
-
+//import { handlers } from "../../../auth";
+const dotenv = require("dotenv")
+dotenv.config();
 const query = util.promisify(db.query).bind(db);
 
 
-export const authOption = {
+export const authOption = async() => {
     session: {
         strategy: 'jwt'
-    },
+    }
     providers: [
         CredentialsProvider({
             async authorize(credentials) {
@@ -31,7 +31,7 @@ export const authOption = {
             }
         })
     ],
-    secret : AUTH_SECRET
+    secret;
 }
-
-export const {GET, POST} = handlers;
+const handler = NextAuth(authOption);
+export const {GET, POST} = handler;
