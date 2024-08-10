@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: "Version: In development",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -18,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        {" "}
         <Navbar />
         <main className="relative overflow-hidden flex justify-center items-start min-h-[85vh]">
           {children}
