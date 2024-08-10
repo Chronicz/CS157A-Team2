@@ -62,7 +62,7 @@ const BlogList = ({ defaultValue }: iDefault) => {
       <div className="flex flex-col items-center gap-y-4">
         <p className="text-3xl font-bold">THE COZY BLOG</p>
         <p>Search for any blogs about a specific piece of furniture!</p>
-        <div className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
+        <div className="relative flex items-center w-1/2 h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
           <div className="grid place-items-center h-full w-12 text-gray-300">
             <svg
               xmlns="http://www.w3.org/2000/svg"

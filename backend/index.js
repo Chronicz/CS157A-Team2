@@ -47,20 +47,24 @@ app.get("/browse", (req, res) => {
 
 app.get("/bloglist", (req, res) => {
     const { blog_title } = req.query;
-    let q = "SELECT b.*, u.username FROM cozyfirm.blog b JOIN cozyfirm.user u ON b.user_id = u.user_id ORDER BY b.blog_id ASC";
-
+    let q = "SELECT b.*, u.username FROM cozyfirm.blog b JOIN cozyfirm.user u ON b.user_id = u.user_id";
+    let params = [];
+  
     if (blog_title) {
-        q += " WHERE blog_title LIKE ?";
+      q += " WHERE blog_title LIKE ?";
+      params.push(`%${blog_title}%`);
     }
-
-    db.query(q, [`%${blog_title}%`], (err, data) => {
-        if (err) {
-            return res.status(500).json({ error: err.message });
-        }
-        return res.json(data);
+  
+    q += " ORDER BY b.blog_id ASC";
+  
+    db.query(q, params, (err, data) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      return res.json(data);
     });
-});
-
+  });
+  
 app.get(`/blogpost/:blog_id`, (req, res) => {
     const req_blog_id = req.params.blog_id;
     const q = `SELECT b.*, u.username FROM cozyfirm.blog b JOIN cozyfirm.user u ON b.user_id = u.user_id WHERE b.blog_id = ${req_blog_id}`;
