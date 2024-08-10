@@ -46,15 +46,20 @@ app.get("/browse", (req, res) => {
 });
 
 app.get("/bloglist", (req, res) => {
-    const q = "SELECT b.*, u.username FROM cozyfirm.blog b JOIN cozyfirm.user u ON b.user_id = u.user_id ORDER BY b.blog_id ASC";
-    db.query(q, (err, data) => {
+    const { blog_title } = req.query;
+    let q = "SELECT b.*, u.username FROM cozyfirm.blog b JOIN cozyfirm.user u ON b.user_id = u.user_id ORDER BY b.blog_id ASC";
+
+    if (blog_title) {
+        q += " WHERE blog_title LIKE ?";
+    }
+
+    db.query(q, [`%${blog_title}%`], (err, data) => {
         if (err) {
-            return res.json(err)
-        } else {
-            return res.json(data)
+            return res.status(500).json({ error: err.message });
         }
-    })
-})
+        return res.json(data);
+    });
+});
 
 app.get(`/blogpost/:blog_id`, (req, res) => {
     const req_blog_id = req.params.blog_id;
