@@ -103,6 +103,45 @@ app.post('/createblog', upload.fields(fields), (req, res) => {
     }
   });
 });
+
+
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//       cb(null, '../frontend/cozyfirm/public/furniture_images');
+//     },
+//     filename: (req, file, cb) => {
+//       cb(null, file.originalname);
+//     },
+//   });
+  
+//   const upload = multer({ storage: storage });
+
+// const fields = [
+//   { name: 'blog_image_file', maxCount: 1 },
+// ];
+
+app.put('/editblog/:blog_id', upload.fields(fields), (req, res) => {
+    const { edit_blog_title, edit_blog_date, edit_blog_description, edit_blog_tag, blog_image_file, edit_user_id } = req.body;
+    const blogId = req.params.blog_id;
+    const parsedUserId = parseInt(edit_user_id, 10);
+    const filePath = req.files.blog_image_file[0].path.replace(/\\/g, '/');
+    const imagePath = filePath.replace(
+      "../frontend/cozyfirm/public",
+      ""
+    )
+  
+    const q = "UPDATE `cozyfirm`.`blog` SET `blog_title` = ?, `blog_date` = ?, `blog_description` = ?, `blog_tag` = ?, `blog_image_path` = ?, `user_id` = ? WHERE `blog_id` = ?";
+    const values = [edit_blog_title, edit_blog_date, edit_blog_description, edit_blog_tag, imagePath, parsedUserId, blogId];
+  
+    db.query(q, values, (err, results) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send(`Error updating blog post: ${err.message}`);
+      } else {
+        res.send(`Blog post updated successfully!`);
+      }
+    });
+  });
   
 
 app.post("/login", (req, res) => {

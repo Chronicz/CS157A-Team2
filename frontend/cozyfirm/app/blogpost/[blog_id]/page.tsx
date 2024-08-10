@@ -65,6 +65,7 @@ const BlogPost = () => {
         <div className="flex flex-row gap-48 mt-12 mb-14">
           <p className="font-semibold">By {blogPostData.username}</p>
           <p>{moment(blogPostData.blog_date).format("YYYY-MM-DD")}</p>
+          <Link href={`/editblog/${blog_id}`}>Edit</Link>
         </div>
         <img
           src={blogPostData.blog_image_path}
