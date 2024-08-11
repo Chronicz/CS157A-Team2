@@ -3,6 +3,5 @@ export const NAV_LINKS = [
     { href: '/browse', key: 'browse', label: 'Browse' },
     { href: '/bloglist', key: 'blog', label: 'Blog' },
     { href: '/contact', key: 'contact', label: 'Contact' },
-    { href: '/aboutus', key: 'about_us', label: 'About Us' },
     { href: '/account', key: 'account', label: 'Account' }
 ];
