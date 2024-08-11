@@ -4,6 +4,7 @@ import React from "react";
 import { useEffect, useState, ChangeEvent } from "react";
 import { useRouter, useParams } from "next/navigation";
 import axios from "axios";
+import Link from "next/link";
 
 interface Furniture {
   furniture_id: number;
@@ -119,7 +120,10 @@ const Browse = ({ defaultValue }: iDefault) => {
             {furnitures.map((furn: Furniture) => (
               <tr
                 key={furn.furniture_id}
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 cursor-pointer"
+                onClick={() =>
+                  (window.location.href = `/furnitureinfo/${furn.furniture_id}`)
+                }
               >
                 <td className="py-4 px-6">{furn.furniture_name}</td>
                 <td className="py-4 px-6">{furn.brand}</td>
