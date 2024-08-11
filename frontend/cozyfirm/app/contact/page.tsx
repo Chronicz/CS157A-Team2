@@ -29,7 +29,7 @@ const Browse = () => {
     return (
         <div>
             <div className="flexCenter pt-20 pb-5 bold-32 flex-col">
-                Contact Our Admins
+                Contributers
             </div>
             <div className="relative h-full overflow-y-auto">
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
