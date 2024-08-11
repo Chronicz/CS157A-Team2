@@ -15,6 +15,9 @@ function Register() {
   const [message, setMessage] = useState("User not registered successfully");
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!username || !password || !first_name || !last_name) {
+      return;
+    }
 
     const reg = async () => {
       try {
