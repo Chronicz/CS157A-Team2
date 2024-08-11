@@ -21,16 +21,12 @@ function Register() {
 
     const reg = async () => {
       try {
-        const userData = new FormData();
-        userData.append("username", username);
-        userData.append("password", password);
-        userData.append("first_name", first_name);
-        userData.append("last_name", last_name);
-
-        const res = await axios.post(
-          "http://localhost:8000/register",
-          userData
-        );
+        const res = await axios.post("http://localhost:8000/register", {
+          username,
+          password,
+          first_name,
+          last_name,
+        });
         console.log(res.data);
         setMessage("User registered successfully, please go to the login page");
         setShowSuccessPopup(true);
