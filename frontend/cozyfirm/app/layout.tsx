@@ -20,7 +20,7 @@ export default async function RootLayout({
       <body>
         {" "}
         <Navbar />
-        <main className="relative overflow-hidden flex justify-center items-start min-h-[85vh]">
+        <main className="relative overflow-hidden flex justify-center content-center items-start min-h-[85vh]">
           {children}
         </main>
         <Footer />
