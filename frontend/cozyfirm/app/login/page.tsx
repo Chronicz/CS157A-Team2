@@ -59,6 +59,14 @@ function Login() {
         >
           Login
         </button>
+        <div className="w-80 mb-4 my-4">
+          Don't have an account yet?{" "}
+          <Link href="/register">
+            <button className="bg-black hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
+              Register
+            </button>
+          </Link>
+        </div>
       </form>
     </div>
   );

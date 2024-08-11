@@ -103,7 +103,19 @@ app.post('/createblog', upload.fields(fields), (req, res) => {
     }
   });
 });
-  
+
+app.post("/register", (req, res) => {
+    const q = "INSERT INTO cozyfirm.user (username, password, first_name, last_name) VALUES (?, ?, ?, ?)";
+    db.query(q, [req.body.username, req.body.password, req.body.first_name, req.body.last_name], (err, data) => {
+        if (err) { return res.json(err) }
+        if (data.length > 0) {
+            return res.json("success")
+        }
+        else {
+            return res.json("invalid")
+        }
+    })
+})
 
 app.post("/login", (req, res) => {
     const q = "SELECT * FROM cozyfirm.user WHERE username = ? AND password = ?";
