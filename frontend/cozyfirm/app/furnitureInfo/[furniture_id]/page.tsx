@@ -5,78 +5,94 @@ import axios from "axios";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 
-interface BlogPostEntry {
-  blog_id: number;
-  blog_title: string;
-  blog_date: Date;
-  blog_description: string;
-  blog_tag: string;
-  blog_image_path: string;
-  user_id: number;
-  username: string;
+interface ProductEntry {
+  furniture_id: number;
+  furniture_name: string;
+  brand: string;
+  description: string;
+  furniture_image_path: string;
+  furniture_buy_link: string;
+  length: number;
+  width: number;
+  height: number;
+  material: string;
+  color: string;
 }
 
 const BlogPost = () => {
-  const { blog_id } = useParams();
+  const { furniture_id } = useParams();
 
-  const [blogPostData, setBlogPostData] = useState<BlogPostEntry>({
-    blog_id: 0,
-    blog_title: "her smile and her dreams",
-    blog_date: new Date(),
-    blog_description: "it gives me meaning everyday",
-    blog_tag: "",
-    blog_image_path: "",
-    user_id: 0,
-    username: "",
+  const [furnitureInfo, setFurnitureInfo] = useState<ProductEntry>({
+    furniture_id: 0,
+    furniture_name: "",
+    brand: "",
+    description: "",
+    furniture_image_path: "",
+    furniture_buy_link: "",
+    length: 0,
+    width: 0,
+    height: 0,
+    material: "",
+    color: "",
   });
 
   useEffect(() => {
-    const fetchBlogPostData = async () => {
+    const fetchFurnitureInfo = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8000/blogpost/${blog_id}`
+          `http://localhost:8000/furnitureinfo/${furniture_id}`
         );
-        const blogPostData = res.data[0];
-        setBlogPostData(blogPostData);
+        const furnitureData = res.data[0];
+        setFurnitureInfo(furnitureData);
         console.log(res);
       } catch (err) {
         console.log(err);
       }
     };
-    fetchBlogPostData();
-  }, [blog_id]);
+    fetchFurnitureInfo();
+  }, [furniture_id]);
 
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center">
         <div className="w-3/4 flex flex-row justify-between items-center">
           <div className="flex justify-start">
-            <Link href="/bloglist">
+            <Link href="/browse">
               <button className="text-lg font-normal cursor-pointer mr-4">
                 &lt; Back
               </button>
             </Link>
           </div>
           <p className="flex justify-center text-3xl font-bold">
-            {blogPostData.blog_title}
+            {furnitureInfo.furniture_name}
           </p>
           <div className="flex justify-end"></div>
         </div>
-        <div className="flex flex-row gap-48 mt-12 mb-14">
-          <p className="font-semibold">By {blogPostData.username}</p>
-          <p>{moment(blogPostData.blog_date).format("YYYY-MM-DD")}</p>
-          <Link href={`/editblog/${blog_id}`}>
-            <button className="bg-black text-white py-2 px-4 rounded-md hover:bg-gray-900 transition duration-300 ease-in-out">
-              Edit
-            </button>
-          </Link>
+        <div className="flex flex-row gap-12 mt-28 mb-14">
+          <div className="w-1/2 ml-64">
+            <img
+              src={furnitureInfo.furniture_image_path}
+              alt="Chair/Table"
+              className="h-80 w-80 border-2 border-black mb-4"
+            />
+          </div>
+          <div className="w-1/2 pl-8 mr-20">
+            <p className="">Brand: {furnitureInfo.brand}</p>
+            <p className="mt-4">{furnitureInfo.description}</p>
+            <p className="mt-4">
+              Buy Now:{" "}
+              <a href={furnitureInfo.furniture_buy_link} target="_blank">
+                {furnitureInfo.furniture_buy_link}
+              </a>
+            </p>
+            <p className="mt-4">
+              Dimensions: {furnitureInfo.length}in x {furnitureInfo.width}in x{" "}
+              {furnitureInfo.height}in
+            </p>
+            <p className="mt-4">Material: {furnitureInfo.material}</p>
+            <p className="mt-4">Color: {furnitureInfo.color}</p>
+          </div>
         </div>
-        <img
-          src={blogPostData.blog_image_path}
-          alt="Chair/Table"
-          className="h-80 w-80 border-2 border-black mb-4"
-        />
-        <p className="ml-56 mr-56 mt-4 mb-4">{blogPostData.blog_description}</p>
       </div>
     </div>
   );
