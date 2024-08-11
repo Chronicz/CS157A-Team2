@@ -45,6 +45,19 @@ app.get("/browse", (req, res) => {
     });
 });
 
+app.get('/furnitureinfo/:furniture_id', (req, res) => {
+    const reqFurnitureId = req.params.furniture_id;
+    const q = 'SELECT * FROM cozyfirm.furniture WHERE furniture.furniture_id = ?';
+    db.query(q, [reqFurnitureId], (err, data) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+        return res.json(data);
+      }
+    });
+  });
+
 app.get("/bloglist", (req, res) => {
     const { blog_title } = req.query;
     let q = "SELECT b.*, u.username FROM cozyfirm.blog b JOIN cozyfirm.user u ON b.user_id = u.user_id";
