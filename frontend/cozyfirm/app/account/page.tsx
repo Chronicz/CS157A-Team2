@@ -4,7 +4,6 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Button from "../../components/buttons";
-import login from "../login/page";
 
 interface User {
   user_id: number;
@@ -63,20 +62,20 @@ const Account = () => {
                     title="Account Settings"
                     variant="btn_dark_green"
                   />
-                </div>
-                <div className="p-2">
-                  <Button
-                    type="button"
-                    title="Wishlist"
-                    variant="btn_dark_green"
-                  ></Button>
-                </div>
-                <div className="my-2">
-                  <Button
-                    type="button"
-                    title="My Blogs"
-                    variant="btn_dark_green"
-                  ></Button>
+                  <div className="p-2">
+                    <Button
+                      type="button"
+                      title="Wishlist"
+                      variant="btn_dark_green"
+                    ></Button>
+                  </div>
+                  <div className="my-2">
+                    <Button
+                      type="button"
+                      title="My Blogs"
+                      variant="btn_dark_green"
+                    ></Button>
+                  </div>
                 </div>
               </div>
             </div>

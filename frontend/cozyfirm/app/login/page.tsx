@@ -1,29 +1,16 @@
 "use client";
 import React, { useState } from "react";
 import axios from "axios";
+import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    try {
-      const res = await axios.post("http://localhost:8000/login", {
-        username,
-        password,
-      });
-      console.log(res.data);
-      setIsLoggedIn(true);
-      window.location.href = "/bloglist"; // Redirect to /bloglist
-    } catch (error: any) {
-      if (error.response) {
-        console.log(error.response.data);
-      } else {
-        console.log(error.message);
-      }
-    }
+  const [user, setUser] = useState({ username: "", password: "" });
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    signIn("credentials", { username: user.username, password: user.password });
   };
 
   return (
@@ -45,7 +32,7 @@ function Login() {
           </label>
           <input
             id="username"
-            type="text"
+            type="username"
             value={username}
             onChange={(event) => setUsername(event.target.value)}
             className="w-full p-2 pl-3 text-sm text-gray-700 border border-black"
@@ -72,6 +59,14 @@ function Login() {
         >
           Login
         </button>
+        <div className="w-80 mb-4 my-4">
+          Don't have an account yet?{" "}
+          <Link href="/register">
+            <button className="bg-black hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
+              Register
+            </button>
+          </Link>
+        </div>
       </form>
     </div>
   );
