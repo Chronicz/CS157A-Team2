@@ -116,6 +116,17 @@ app.post('/createblog', upload.fields(fields), (req, res) => {
   });
 });
 
+  db.query(q, [req.body.username, req.body.password, req.body.first_name, req.body.last_name], (err, data) => {
+      if (err) { return res.json(err) }
+      if (data.length > 0) {
+          return res.json("success")
+      }
+      else {
+          return res.json("invalid")
+      }
+  })
+})
+
 app.put('/editblog/:blog_id', upload.fields(fields), (req, res) => {
     const { edit_blog_title, edit_blog_date, edit_blog_description, edit_blog_tag, edit_user_id } = req.body;
     const blogId = req.params.blog_id;
