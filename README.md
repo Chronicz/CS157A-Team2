@@ -31,18 +31,8 @@ This is a furniture-focused web application that contains the following key feat
   })
   ```
 
-- Install API modules by typing `npm i` followed by package names in command prompt at directories `/frontend/cozyfirm` and `/backend`
-  ```
-  npm i next.js
-  npm i express.js
-  npm i axios
-  npm i cors
-  npm i nextauth.js
-  npm i multer
-  npm i moment
-  npm i fs
-  npm i mysql2
-  ```
+- Install API modules by typing `npm i` in command prompt at directories `/frontend/cozyfirm` and `/backend`
+- type `npm i moment` in `/frontend/cozyfirm`
   
 <a name="usage"></a>
 
