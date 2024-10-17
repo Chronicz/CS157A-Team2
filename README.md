@@ -28,10 +28,21 @@ This is a furniture-focused web application that contains the following key feat
     user: "your_root",
     password: "your_password",
     database: "cozyfirm"
-})```
+  })
+  ```
 
 - Install API modules by typing `npm i` followed by package names in command prompt at directories `/frontend/cozyfirm` and `/backend`
-- Required Packages: Next.js, Express.js, Axios, CORS, NextAuth.js, multer, moment, fs, mysql2
+  ```
+  npm i next.js
+  npm i express.js
+  npm i axios
+  npm i cors
+  npm i nextauth.js
+  npm i multer
+  npm i moment
+  npm i fs
+  npm i mysql2
+  ```
   
 <a name="usage"></a>
 
