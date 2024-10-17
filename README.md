@@ -18,15 +18,15 @@ This is a furniture-focused web application that contains the following key feat
 ## Installation
 
 - Clone this repository: `git clone https://github.com/Chronicz/CS157A-Team2.git`
-
-<a name="usage"></a>
-
-## Usage
-
+- Download `entire schema initialization.sql` and import it into any Database Management System
 - Download Node.js and Node Package Manager
 - Open the project in any IDE
 - Install API modules by typing `npm i` followed by package names in command prompt at directories `/frontend/cozyfirm` and `/backend`
-  Required Packages: Next.js, Express.js, Axios, CORS, NextAuth.js, multer, moment, fs, mysql2
+- Required Packages: Next.js, Express.js, Axios, CORS, NextAuth.js, multer, moment, fs, mysql2
+  
+<a name="usage"></a>
+
+## Usage
 - Navigate to `/backend` and type `npm start` in command prompt
 - Navigate to `/frontend/cozyfirm` and type `npm run` in command prompt
 - On web browser, navigate to `http://localhost:3000/` and enjoy the application!
