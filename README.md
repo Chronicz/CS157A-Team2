@@ -32,7 +32,7 @@ This is a furniture-focused web application that contains the following key feat
   ```
 
 - Install API modules by typing `npm i` in command prompt at directories `/frontend/cozyfirm` and `/backend`
-- type `npm i moment` in `/frontend/cozyfirm`
+- Type `npm i moment` in command prompt at directory `/frontend/cozyfirm`
   
 <a name="usage"></a>
 
