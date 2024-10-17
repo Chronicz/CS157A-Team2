@@ -1,6 +1,6 @@
 # CozyFirm
 
-This is a web application that . Key features include:
+This is a furniture-focused web application that contains the following key features:
 
 - A catalog of chairs and tables available and basic information about them
 - A blog post tab where users can write blogs about specific pieces of furniture
@@ -26,7 +26,7 @@ This is a web application that . Key features include:
 - Download Node.js and Node Package Manager
 - Open the project in any IDE
 - Install API modules by typing `npm i` followed by package names in command prompt at directories `/frontend/cozyfirm` and `/backend`
-    -Required Packages: Next.js, Express.js, Axios, CORS, NextAuth.js, multer, moment, fs, mysql2
+  Required Packages: Next.js, Express.js, Axios, CORS, NextAuth.js, multer, moment, fs, mysql2
 - Navigate to `/backend` and type `npm start` in command prompt
 - Navigate to `/frontend/cozyfirm` and type `npm run` in command prompt
 - On web browser, navigate to `http://localhost:3000/` and enjoy the application!
