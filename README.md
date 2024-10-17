@@ -22,6 +22,7 @@ This is a furniture-focused web application that contains the following key feat
 - Download Node.js and Node Package Manager
 - Open the project in any IDE
 - Navigate to `index.js` and modify this part of the code to have your DBMS credentials:
+
   ```
   const db = mysql.createConnection({
     host: "your_host_name",
@@ -32,11 +33,11 @@ This is a furniture-focused web application that contains the following key feat
   ```
 
 - Install API modules by typing `npm i` in command prompt at directories `/frontend/cozyfirm` and `/backend`
-- Type `npm i moment` in command prompt at directory `/frontend/cozyfirm`
-  
+
 <a name="usage"></a>
 
 ## Usage
+
 - Navigate to `/backend` and type `npm start` in command prompt
 - Navigate to `/frontend/cozyfirm` and type `npm run` in command prompt
 - On web browser, navigate to `http://localhost:3000/` and enjoy the application!
