@@ -18,7 +18,7 @@ This is a furniture-focused web application that contains the following key feat
 ## Installation
 
 - Clone this repository: `git clone https://github.com/Chronicz/CS157A-Team2.git`
-- Download `entire schema initialization.sql` and import it into any Database Management System (DBMS)
+- Download `entire schema initialization.sql` and import it into any Database Management System (DBMS) and execute the SQL code
 - Download Node.js and Node Package Manager
 - Open the project in any IDE
 - Navigate to `index.js` and modify this part of the code to have your DBMS credentials:
