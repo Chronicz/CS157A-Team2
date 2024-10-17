@@ -22,13 +22,13 @@ This is a furniture-focused web application that contains the following key feat
 - Download Node.js and Node Package Manager
 - Open the project in any IDE
 - Navigate to `index.js` and modify this part of the code to have your DBMS credentials:
-  `
+  ```
   const db = mysql.createConnection({
     host: "your_host_name",
     user: "your_root",
     password: "your_password",
     database: "cozyfirm"
-})`
+})```
 
 - Install API modules by typing `npm i` followed by package names in command prompt at directories `/frontend/cozyfirm` and `/backend`
 - Required Packages: Next.js, Express.js, Axios, CORS, NextAuth.js, multer, moment, fs, mysql2
@@ -45,7 +45,7 @@ This is a furniture-focused web application that contains the following key feat
 ## Future Plans
 
 - Collect data on more furnitures
-- Add furniture reommendation function based on desired attributes
+- Add furniture recommendation function based on desired attributes
 - Compplete wishlist functionality
 - Complete the user authentication and log-in function
 
