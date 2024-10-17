@@ -3,7 +3,7 @@
 This is a furniture-focused web application that contains the following key features:
 
 - A catalog of chairs and tables available and basic information about them
-- A blog post tab where users can write blogs about specific pieces of furniture
+- A blog list tab where users can write and edit blog posts about specific pieces of furniture
 - A wishlist feature where users can save furnitures of interest
 
 ## Table of Contents
