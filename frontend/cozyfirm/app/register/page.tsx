@@ -51,7 +51,7 @@ function Register() {
   };
   return (
     <div className="w-3/4 h-full mx-auto p-4 pt-6 md:p-6 lg:p-12">
-      <div className="flex flex-row justify-center items-center">
+      <div className="Fflex flex-row justify-center items-center">
         <h1 className="text-3xl font-bold mb-4">Register for an account</h1>
       </div>
 
@@ -68,7 +68,7 @@ function Register() {
           </label>
           <input
             id="username"
-            type="username"
+            type="text"
             value={username}
             onChange={(event) => setUsername(event.target.value)}
             className="w-full p-2 pl-3 text-sm text-gray-700 border border-black"
@@ -83,7 +83,7 @@ function Register() {
           </label>
           <input
             id="password"
-            type="password"
+            type="text"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
             className="w-full p-2 pl-3 text-sm text-gray-700 border border-black"
@@ -98,7 +98,7 @@ function Register() {
           </label>
           <input
             id="first_name"
-            type="first_name"
+            type="text"
             value={first_name}
             onChange={(event) => setFname(event.target.value)}
             className="w-full p-2 pl-3 text-sm text-gray-700 border border-black"
@@ -113,7 +113,7 @@ function Register() {
           </label>
           <input
             id="last_name"
-            type="last_name"
+            type="text"
             value={last_name}
             onChange={(event) => setLname(event.target.value)}
             className="w-full p-2 pl-3 text-sm text-gray-700 border border-black"

@@ -122,7 +122,7 @@ const Browse = ({ defaultValue }: iDefault) => {
                 key={furn.furniture_id}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 cursor-pointer"
                 onClick={() =>
-                  (window.location.href = `/furnitureinfo/${furn.furniture_id}`)
+                  (window.location.href = `/furnitureInfo/${furn.furniture_id}`)
                 }
               >
                 <td className="py-4 px-6">{furn.furniture_name}</td>

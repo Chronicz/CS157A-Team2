@@ -47,37 +47,35 @@ const BlogPost = () => {
   }, [blog_id]);
 
   return (
-    <div className="flex justify-center">
-      <div className="flex flex-col items-center">
-        <div className="w-3/4 flex flex-row justify-between items-center">
-          <div className="flex justify-start">
-            <Link href="/bloglist">
-              <button className="text-lg font-normal cursor-pointer mr-4">
-                &lt; Back
-              </button>
-            </Link>
-          </div>
-          <p className="flex justify-center text-3xl font-bold">
-            {blogPostData.blog_title}
-          </p>
-          <div className="flex justify-end"></div>
-        </div>
-        <div className="flex flex-row gap-48 mt-12 mb-14">
-          <p className="font-semibold">By {blogPostData.username}</p>
-          <p>{moment(blogPostData.blog_date).format("YYYY-MM-DD")}</p>
-          <Link href={`/editblog/${blog_id}`}>
-            <button className="bg-black text-white py-2 px-4 rounded-md hover:bg-gray-900 transition duration-300 ease-in-out">
-              Edit
+    <div className="flex flex-col items-center">
+      <div className="w-3/4 flex flex-row justify-between">
+        <div className="flex justify-start">
+          <Link href="/bloglist">
+            <button className="text-lg font-normal cursor-pointer mr-4">
+              &lt; Back
             </button>
           </Link>
         </div>
-        <img
-          src={blogPostData.blog_image_path}
-          alt="Chair/Table"
-          className="h-80 w-80 border-2 border-black mb-4"
-        />
-        <p className="ml-56 mr-56 mt-4 mb-4">{blogPostData.blog_description}</p>
+        <p className="flex justify-center text-3xl font-bold">
+          {blogPostData.blog_title}
+        </p>
+        <div className="flex justify-end"></div>
       </div>
+      <div className="flex flex-row gap-48 mt-12 mb-14">
+        <p className="font-semibold">By {blogPostData.username}</p>
+        <p>{moment(blogPostData.blog_date).format("YYYY-MM-DD")}</p>
+        <Link href={`/editblog/${blog_id}`}>
+          <button className="bg-black text-white py-2 px-4 rounded-md hover:bg-gray-900 transition duration-300 ease-in-out">
+            Edit
+          </button>
+        </Link>
+      </div>
+      <img
+        src={blogPostData.blog_image_path}
+        alt="Chair/Table"
+        className="h-80 w-80 border-2 border-black mb-4"
+      />
+      <p className="ml-56 mr-56 mt-4 mb-4">{blogPostData.blog_description}</p>
     </div>
   );
 };
