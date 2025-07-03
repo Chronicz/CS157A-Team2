@@ -1,51 +1,45 @@
 "use client";
 import React, { useState } from "react";
-import axios from "axios"; // Keep axios, it's needed now!
+import axios from "axios";
 import Link from "next/link";
-import { useRouter } from "next/navigation"; // Import useRouter for redirection
+import { useRouter } from "next/navigation";
+import { useAuth } from "../../context/AuthContext";
 
-// Assuming you have a SuccessPopup component for messages
-// import SuccessPopup from "../../components/SuccessPopup"; // Uncomment if you have this
+import SuccessPopup from "../../components/SuccessPopup";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState(""); // For displaying success or error messages
-  const router = useRouter(); // Initialize useRouter
+  const [message, setMessage] = useState("");
+  // const [showSuccessPopup, setShowSuccessPopup] = useState(false)
+  const router = useRouter();
+  const { login } = useAuth();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => { // Use React.FormEvent for type safety
-    e.preventDefault(); // Prevent default form submission (page reload)
-    setMessage(""); // Clear previous messages
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setMessage("");
 
-    // Basic client-side validation (ensure fields are not empty)
     if (!username || !password) {
       setMessage("Please enter both username and password.");
-      return; // Stop the function if validation fails
+      return;
     }
 
     try {
-      // Make the POST request to your backend login API
-      // Ensure this URL matches your backend route (e.g., /api/login or /login)
+
       const res = await axios.post("http://localhost:8000/login", {
-        username, // Shorthand for username: username
-        password, // Shorthand for password: password
+        username,
+        password,
       });
 
-      // Log the response data from the backend
       console.log("Login successful:", res.data);
 
       // *** CRITICAL STEP: Store the JWT and User Info ***
       // This token will be sent with subsequent authenticated requests
-      localStorage.setItem('token', res.data.token);
-      localStorage.setItem('userId', res.data.userId);
-      localStorage.setItem('username', res.data.username);
+      login(res.data.token, res.data.userId, res.data.username);
 
-      // Set success message for popup
       setMessage("Logged in successfully! Redirecting to home...");
-      // You can optionally show a popup here, then redirect
-      // setShowSuccessPopup(true); // If using a popup
+      // setShowSuccessPopup(true);
 
-      // Redirect to the home page or a dashboard after successful login
       router.push('/'); // Navigate to the root path
 
     } catch (error: any) {
@@ -90,7 +84,7 @@ function Login() {
           </label>
           <input
             id="username"
-            type="text" // Correct HTML type
+            type="text"
             value={username}
             onChange={(event) => setUsername(event.target.value)}
             className="w-full p-2 pl-3 text-sm text-gray-700 border border-black"
