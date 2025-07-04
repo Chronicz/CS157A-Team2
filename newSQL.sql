@@ -36,7 +36,8 @@ CREATE TABLE `cozyfirm`.`furniture` (
 `price` DOUBLE NOT NULL,
 `material` VARCHAR(60) NOT NULL,
 `color` VARCHAR(60) NOT NULL,
-PRIMARY KEY (`furniture_id`, `furniture_name`));
+-- PRIMARY KEY (`furniture_id`, `furniture_name`)); unsure if furniture_name should be part of PK
+PRIMARY KEY (`furniture_id`));
 
 CREATE TABLE `cozyfirm`.`wishlist`( 
     `wishlist_id` INT AUTO_INCREMENT NOT NULL,
@@ -54,7 +55,7 @@ CREATE TABLE `cozyfirm`.`wishlistitems`(
     PRIMARY KEY (`wishlist_id`, `furniture_id`),
     CONSTRAINT `fk_wishlistitems_wishlist`
         FOREIGN KEY (`wishlist_id`)
-        REFERENCES `cozyfirm`.`wishlist`(`wishlist_id`)
+        REFERENCES `cozyfirm`.`wishlist`(`wishlist_id`),
     CONSTRAINT `fk_wishlistitems_furniture`
         FOREIGN KEY (`furniture_id`)
         REFERENCES `cozyfirm`.`furniture`(`furniture_id`)
@@ -144,15 +145,32 @@ The Freedom chair’s minimalist design is both stylish and functional, making i
 One of the standout features of the Parsons table is its durability. It is built to withstand daily use while maintaining its elegant appearance. The spacious surface is perfect for both everyday meals and larger gatherings. Overall, the Room & Board Parsons table combines style and functionality, making it a valuable addition to any dining space.", 
 '/furniture_images/room_&_board_parsons_table.jpg', 10);
 
-INSERT INTO `cozyfirm`.`wishlist` (wishlist_id, furniture_id, user_id)
+
+
+INSERT INTO `cozyfirm`.`wishlist` (wishlist_id, user_id)
 VALUES
-  (1, 3, 1),
-  (2, 2, 2),
-  (3, 5, 3),
-  (4, 1, 1),
-  (5, 4, 4),
-  (6, 2, 2),
-  (7, 3, 3),
-  (8, 1, 1),
-  (9, 5, 4),
-  (10, 4, 2);
+  (1, 1),
+  (2, 2),
+  (3, 3),
+  (4, 1),
+  (5, 4),
+  (6, 2),
+  (7, 3),
+  (8, 1),
+  (9, 4),
+  (10, 2);
+
+
+
+INSERT INTO `cozyfirm`.`wishlistitems` (wishlist_id, furniture_id, count)
+VALUES
+(1, 3, 1),
+(1, 7, 2),
+(1, 5, 1),
+(2, 1, 1),
+(2, 6, 3),
+(3, 9, 2),
+(4, 2, 1),
+(4, 8, 2),
+(5, 10, 1),
+(5, 4, 1);
