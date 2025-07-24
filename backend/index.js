@@ -8,6 +8,7 @@ import multer from 'multer';
 import fs from 'fs';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import authenticateToken from './middleware/authMiddleware.js';
 const app = express()
 app.use(express.json());
 app.use(cors())
@@ -275,6 +276,32 @@ app.post("/login", async (req, res) => { // Make this an 'async' function
     res.status(500).json({ message: 'An unexpected server error occurred during login. Please try again later.' });
   }
 })
+
+app.get("/wishlist", authenticateToken, async (req, res) => {
+  const userId = req.userId;
+
+  if (!userId) {
+    return res.status(401).json({ message: 'User not authenticated or ID missing.' });
+  }
+  const q = `SELECT cozyfirm.wishlistitems.wishlist_id, cozyfirm.furniture.furniture_name, cozyfirm.wishlistitems.count 
+            FROM cozyfirm.wishlistitems JOIN cozyfirm.wishlist ON cozyfirm.wishlist.wishlist_id = cozyfirm.wishlistitems.wishlist_id
+              JOIN cozyfirm.furniture ON cozyfirm.furniture.furniture_id = cozyfirm.wishlistitems.furniture_id
+            WHERE user_id = ?
+            `;
+
+  try {
+    const [data] = await db.promise().query(q, [userId]);
+
+    if (data.length === 0) {
+      return res.status(200).json([]);
+    } else {
+      return res.status(200).json(data);
+    }
+  } catch (err) {
+    console.error('Server error fetching wishlist:', err);
+    return res.status(500).json({ message: 'An unexpected server error occurred while fetching your wishlist. Please try again later.' });
+  }
+});
 
 app.get("/account", (req, res) => {
   const q = "SELECT * FROM cozyfirm.user;"

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
 import { useAuth } from "../../context/AuthContext";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import WishListItem from "../../components/WishListItem";
 
 
@@ -62,5 +62,18 @@ const WishListPage = () => {
             </div>
         );
     }
+
+    return (
+        // display all of the wish list items of the user
+        <div>
+            <div className="flex flex-row items-center">
+                <div className="grid grid-cols-3 gap-y-14 mt-10">
+                    {wishlistItems.map((item, index) => (
+                        <WishListItem key={index} {...item} />
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
 };
 export default WishListPage;
